@@ -12,7 +12,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "is_active")
+        fields = ("email", "is_active")
 
 
 class UserProfileForm(forms.ModelForm):

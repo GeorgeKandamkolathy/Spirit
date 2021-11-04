@@ -23,7 +23,7 @@ from . import utils
 def publish(request, category_id=None):
     if category_id:
         get_object_or_404(
-            Category.objects.visible(),
+            Category.objects.visible(request.user),
             pk=category_id)
 
     user = request.user
@@ -104,7 +104,7 @@ def detail(request, pk, slug):
 def index_active(request):
     categories = (
         Category.objects
-        .visible()
+        .visible(request.user)
         .parents()
         .ordered())
 

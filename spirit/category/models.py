@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from django import core
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils import timezone
 
+from ..user.models import UserProfile
+
 from ..core.conf import settings
 from ..core.utils.models import AutoSlugField
 from .managers import CategoryQuerySet
 
+User = get_user_model()
 
 class Category(models.Model):
     """
@@ -43,6 +48,8 @@ class Category(models.Model):
     is_closed = models.BooleanField(_("closed"), default=False)
     is_removed = models.BooleanField(_("removed"), default=False)
     is_private = models.BooleanField(_("private"), default=False)
+
+    users = models.ManyToManyField(User, default=1, null=True, blank=True)
 
     objects = CategoryQuerySet.as_manager()
 

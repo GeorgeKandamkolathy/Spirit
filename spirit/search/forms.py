@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import smart_str
 
 from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet
 
+from ..user.models import UserProfile
+
 from ..core.conf import settings
 from ..topic.models import Topic
 from ..category.models import Category
 
+User = get_user_model()
 
 class BaseSearchForm(SearchForm):
 
@@ -44,7 +48,7 @@ class BasicSearchForm(BaseSearchForm):
 class AdvancedSearchForm(BaseSearchForm):
 
     category = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.visible(),
+        queryset=Category.objects.visible(User.objects.all()),
         required=False,
         label=_('Filter by'),
         widget=forms.CheckboxSelectMultiple)
