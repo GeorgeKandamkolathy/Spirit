@@ -13,7 +13,7 @@ from .models import Category
 
 def detail(request, pk, slug):
     category = get_object_or_404(
-        Category.objects.visible(),
+        Category.objects.visible(request.user),
         pk=pk)
 
     if category.slug != slug:
@@ -21,7 +21,7 @@ def detail(request, pk, slug):
 
     subcategories = (
         Category.objects
-        .visible()
+        .visible(request.user)
         .children(parent=category)
         .ordered())
 
@@ -48,8 +48,7 @@ def detail(request, pk, slug):
             'topics': topics})
 
 
-class IndexView(ListView):
-
+def index(request):
     template_name = 'spirit/category/index.html'
     context_object_name = "categories"
-    queryset = Category.objects.visible().parents().ordered()
+    queryset = Category.objects.visible(request.user).parents().ordered()

@@ -3,6 +3,8 @@
 from django.db import models
 from django.db.models import Q
 
+from ..user.models import UserProfile
+
 from spirit.core.conf import settings
 
 
@@ -15,8 +17,8 @@ class CategoryQuerySet(models.QuerySet):
     def public(self):
         return self.filter(is_private=False)
 
-    def visible(self):
-        return self.unremoved().public()
+    def visible(self, user):
+        return self.unremoved().public().filter(users__exact = user)
 
     def opened(self):
         return self.filter(

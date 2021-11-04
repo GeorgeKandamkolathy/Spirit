@@ -33,7 +33,6 @@ class Migration(migrations.Migration):
                 ('is_verified', models.BooleanField(default=False, help_text='Designates whether the user has verified his account by email or by other means. Un-select this to let the user activate his account.', verbose_name='verified')),
                 ('topic_count', models.PositiveIntegerField(default=0, verbose_name='topic count')),
                 ('comment_count', models.PositiveIntegerField(default=0, verbose_name='comment count')),
-                ('username', models.CharField(unique=True, db_index=True, verbose_name='username', validators=[django.core.validators.RegexValidator(re.compile('^[\\w.@+-]+$', 32), 'Enter a valid username.', 'invalid')], help_text='Required. 30 characters or fewer. Letters, numbers and @/./+/-/_ characters', max_length=30)),
                 ('first_name', models.CharField(max_length=30, verbose_name='first name', blank=True)),
                 ('last_name', models.CharField(max_length=30, verbose_name='last name', blank=True)),
                 ('email', models.EmailField(unique=True, max_length=254, verbose_name='email')),

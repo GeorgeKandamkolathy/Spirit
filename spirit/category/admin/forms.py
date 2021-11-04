@@ -22,13 +22,16 @@ class CategoryForm(forms.ModelForm):
             "is_global",
             "is_closed",
             "is_removed",
-            "color")
+            "color",
+            "users"
+            )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.user = kwargs.pop('user',None)
         queryset = (
             Category.objects
-            .visible()
+            .visible(self.user)
             .parents()
             .ordered())
 

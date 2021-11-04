@@ -39,6 +39,7 @@ class _CustomPasswordResetConfirmView(django_views.PasswordResetConfirmView):
 
 class _CustomPasswordResetCompleteView(django_views.PasswordResetCompleteView):
     template_name = 'spirit/user/auth/password_reset_complete.html'
+    extra_context = {'LOGIN_URL': settings.LOGIN_URL}
 
 
 class _CustomPasswordResetDoneView(django_views.PasswordResetDoneView):

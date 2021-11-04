@@ -30,7 +30,7 @@ class RegistrationForm(CleanEmailMixin, forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "email")
+        fields = ("email",)
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
