@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.db.models import Q
+from django.contrib.auth.models import AnonymousUser
 
 from ..user.models import UserProfile
 
@@ -18,7 +19,10 @@ class CategoryQuerySet(models.QuerySet):
         return self.filter(is_private=False)
 
     def visible(self, user):
-        return self.unremoved().public().filter(users__exact = user)
+            if isinstance(user, AnonymousUser):
+                return self.unremoved().public().filter(is_private = False)
+
+            return self.unremoved().public().filter(users__exact = user) | self.unremoved().public().filter(is_private = False)
 
     def opened(self):
         return self.filter(
