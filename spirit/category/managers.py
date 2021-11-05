@@ -20,9 +20,9 @@ class CategoryQuerySet(models.QuerySet):
 
     def visible(self, user):
             if isinstance(user, AnonymousUser):
-                return self.unremoved().public().filter(is_private = False)
+                return self.unremoved().public()
 
-            return self.unremoved().public().filter(users__exact = user) | self.unremoved().public().filter(is_private = False)
+            return self.unremoved().filter(users__exact = user) | self.unremoved().public()
 
     def opened(self):
         return self.filter(
