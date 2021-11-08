@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth.models import AnonymousUser
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.db.models import Q, Prefetch
@@ -18,8 +19,11 @@ class TopicQuerySet(models.QuerySet):
     def public(self):
         return self.filter(category__is_private=False)
 
-    def visible(self):
-        return self.unremoved().public()
+    def visible(self, user):
+            if isinstance(user, AnonymousUser):
+                return self.unremoved().public()
+
+            return self.unremoved().filter(category__users__exact = user) | self.unremoved().public()
 
     def opened(self):
         return self.filter(is_closed=False)
@@ -58,12 +62,12 @@ class TopicQuerySet(models.QuerySet):
     def get_public_or_404(self, pk, user):
         if user.is_authenticated and user.st.is_moderator:
             return get_object_or_404(
-                self.public()
+                self.visible(user)
                 .select_related('category__parent'),
                 pk=pk)
         else:
             return get_object_or_404(
-                self.visible()
+                self.visible(user)
                 .select_related('category__parent'),
                 pk=pk)
 
