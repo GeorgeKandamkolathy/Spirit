@@ -8,6 +8,13 @@
 <div class="layout__article">
   {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories %}
 
+    <div style="text-align: right;">
+    {% if category %}
+    <a class="button" href="{% url "spirit:admin:category:create_sub" category.pk %}">{% trans "Create Subcategory" %}</a>
+    {% endif %}
+  </div>
+  <br>
+
   {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
 
   {% render_paginator topics %}
