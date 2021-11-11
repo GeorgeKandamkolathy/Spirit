@@ -8,6 +8,18 @@ from django.shortcuts import redirect
 
 from spirit.core.conf import settings
 
+def authenticated_required(view_func):
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        user = request.user
+
+        if not user.is_authenticated:
+            return redirect_to_login(next=request.get_full_path(),
+                                     login_url=settings.LOGIN_URL)
+
+        return view_func(request, *args, **kwargs)
+
+    return wrapper    
 
 def moderator_required(view_func):
     @wraps(view_func)

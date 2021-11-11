@@ -10,6 +10,7 @@ app_name = 'category'
 urlpatterns = [
     re_path(r'^$', views.index, name='index'),
     re_path(r'^create/$', views.create, name='create'),
+    re_path(r'^create-sub/(?P<category_id>[0-9]+)/$', views.create_subcategory, name='create_sub'),
     re_path(r'^update/(?P<category_id>[0-9]+)/$', views.update, name='update'),
 ]
 
