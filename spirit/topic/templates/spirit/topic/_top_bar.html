@@ -35,12 +35,12 @@
       {% endspaceless %}
     </div>
   </div>
-  <div class="menu__new_topic" style="margin-left: 70%;">
-    {% if category %}
-      <a class="button" href="{% url "spirit:admin:category:create_sub" category.pk%}"
-      >{% trans "Create Category" %}</a>
-    {% endif %}
-  </div>
+{#  <div class="menu__new_topic" style="margin-left: 70%;">#}
+{#    {% if category %}#}
+{#      <a class="button" href="{% url "spirit:admin:category:create_sub" category.pk%}"#}
+{#      >{% trans "Create Category" %}</a>#}
+{#    {% endif %}#}
+{#  </div>#}
   <div class="menu__new_topic">
     {% if category %}
       <a class="button" href="{% url "spirit:topic:publish" category.pk %}"
