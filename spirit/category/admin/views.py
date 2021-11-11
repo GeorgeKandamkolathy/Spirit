@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 
+from django.http.request import QueryDict
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.urls import reverse
 from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from ...core.utils.views import is_post, post_data
-from ...core.utils.decorators import administrator_required
+from ...core.utils.decorators import administrator_required, authenticated_required
 from ..models import Category
-from .forms import CategoryForm
+from .forms import CategoryForm, SubCategoryForm
 
 User = get_user_model()
 
@@ -38,6 +39,21 @@ def create(request):
         template_name='spirit/category/admin/create.html',
         context={'form': form})
 
+@authenticated_required
+def create_subcategory(request, category_id):
+    if (is_post(request)):
+        data = request.POST.copy()
+        data['parent'] = category_id
+        form = SubCategoryForm(data=data)
+    else:
+        form = SubCategoryForm(data=post_data(request))
+    if is_post(request) and form.is_valid():
+        form.save()
+        return redirect(reverse("spirit:admin:category:index"))
+    return render(
+        request=request,
+        template_name='spirit/category/admin/create.html',
+        context={'form': form})
 
 @administrator_required
 def update(request, category_id):
