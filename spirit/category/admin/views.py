@@ -49,7 +49,7 @@ def create_subcategory(request, category_id):
         form = SubCategoryForm(data=post_data(request))
     if is_post(request) and form.is_valid():
         form.save()
-        return redirect(reverse("spirit:admin:category:index"))
+        return redirect(reverse("spirit:topic:index-active"))
     return render(
         request=request,
         template_name='spirit/category/admin/create.html',
