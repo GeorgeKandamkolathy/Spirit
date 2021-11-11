@@ -131,7 +131,7 @@ def _activity(request, pk, slug, queryset, template, reverse_to, context_name, p
 def topics(request, pk, slug):
     user_topics = (
         Topic.objects
-        .visible()
+        .visible(request.user)
         .with_bookmarks(user=request.user)
         .filter(user_id=pk)
         .select_related('category', 'user__st')
