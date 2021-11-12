@@ -5,7 +5,8 @@ from django.utils.http import urlencode
 from .registry import register
 
 
-FACEBOOK_URL = "https://www.facebook.com/sharer/sharer.php?%s"
+# FACEBOOK_URL = "https://www.facebook.com/sharer/sharer.php?%s"
+LINKEDIN_URL = "https://www.linkedin.com/v2/shares?%s"
 TWITTER_URL = "https://twitter.com/share?%s"
 
 
@@ -22,12 +23,12 @@ def _compose_tweet(title):
 
 
 @register.simple_tag(takes_context=True)
-def get_facebook_share_url(context, url, title):
+def get_linkedin_share_url(context, url, title):
     request = context['request']
     params = [
-        ('u', request.build_absolute_uri(url)),
-        ('t', title)]
-    return FACEBOOK_URL % urlencode(params)
+        ('originalUrl', request.build_absolute_uri(url)),
+        ('text', title)]
+    return LINKEDIN_URL % urlencode(params)
 
 
 @register.simple_tag(takes_context=True)
