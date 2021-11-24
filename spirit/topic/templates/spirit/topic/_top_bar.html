@@ -1,8 +1,8 @@
 {% load i18n %}
 
 <div class="layout__menu">
-  <div class="menu__dropdown js-tabs-container">
-    <div class="menu__dropdown_button">
+  <div class="menu__dropdown js-tabs-container" style="width:70%">
+    <div class="menu__dropdown_button" style="width:70%">
       {% if category %}
         <a
           class="dropdown_button js-tab"
@@ -35,7 +35,8 @@
       {% endspaceless %}
     </div>
   </div>
-  <div class="menu__new_topic" style="margin-left: 70%;">
+  <div style="display:flex;">
+  <div class="menu__new_topic">
     {% if category %}
       <a class="button" href="{% url "spirit:admin:category:create_sub" category.pk%}"
       >{% trans "Create Category" %}</a>
@@ -49,5 +50,6 @@
       <a class="button" href="{% url "spirit:topic:publish" %}"
       >{% trans "Create Topic" %}</a>
     {% endif %}
+  </div>
   </div>
 </div>
