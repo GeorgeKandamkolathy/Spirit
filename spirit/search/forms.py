@@ -6,7 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import smart_str
 
 from haystack.forms import SearchForm
-from haystack.query import EmptySearchQuerySet
+from haystack.inputs import AutoQuery
+from haystack.query import EmptySearchQuerySet, SearchQuerySet
 
 from ..user.models import UserProfile
 
@@ -18,7 +19,11 @@ User = get_user_model()
 
 class BaseSearchForm(SearchForm):
 
+    def search(self):
+        return  SearchQuerySet().filter(content__startswith=self.cleaned_data['q'])
+
     def clean_q(self):
+        '''
         q = self.cleaned_data['q']
 
         if len(q) < settings.ST_SEARCH_QUERY_MIN_LEN:
@@ -26,8 +31,8 @@ class BaseSearchForm(SearchForm):
                 _("Your search must contain at "
                   "least %(length)s characters.") % {
                     'length': settings.ST_SEARCH_QUERY_MIN_LEN})
-
-        return q
+        '''
+        return self.cleaned_data['q']
 
 
 class BasicSearchForm(BaseSearchForm):
@@ -42,7 +47,7 @@ class BasicSearchForm(BaseSearchForm):
 
         # See: haystack pull #1141 and #1093
         # querying False won't work on elastic
-        return topics.filter(is_removed=0)
+        return topics.filter(title__icontains=self.cleaned_data['q'], is_removed=0)
 
 
 class AdvancedSearchForm(BaseSearchForm):
@@ -67,12 +72,13 @@ class AdvancedSearchForm(BaseSearchForm):
             return sqs
 
         topics = sqs.models(Topic)
+        '''
         categories = self.cleaned_data['category']
-
+        print(categories[0:1])
         if categories:
             topics = topics.filter(
                 category_id__in=[c.pk for c in categories])
-
+        '''
         # See: haystack pull #1141 and #1093
         # querying False won't work on elastic
-        return topics.filter(is_removed=0)
+        return topics
