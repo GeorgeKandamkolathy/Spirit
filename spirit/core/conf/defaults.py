@@ -107,7 +107,7 @@ ST_MATH_JAX = False
 ST_YT_PAGINATOR_PAGE_RANGE = 3
 
 #: Minimum length for a given search query
-ST_SEARCH_QUERY_MIN_LEN = 3
+ST_SEARCH_QUERY_MIN_LEN = 1
 
 #: Threshold in minutes before the user
 #: `"last seen"` info can be updated

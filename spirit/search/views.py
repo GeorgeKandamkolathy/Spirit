@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
+from django.http import request
+from haystack.query import SearchQuerySet
 from haystack.views import SearchView as BaseSearchView
 from djconfig import config
 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from .forms import AdvancedSearchForm
+from .forms import AdvancedSearchForm, BaseSearchForm
 from ..core.utils.paginator import yt_paginate
-
 
 class SearchView(BaseSearchView):
     """
@@ -20,15 +21,11 @@ class SearchView(BaseSearchView):
     Avoid doing ``{{ result.object }}`` to\
     prevent database hits.
     """
-    def __init__(self, *args, **kwargs):  # no-qa
+    def __init__(self, *args, **kwargs):  # no-qa   
         super(SearchView, self).__init__(
             template='spirit/search/search.html',
-            form_class=AdvancedSearchForm,
-            load_all=False)
-
-    @method_decorator(login_required)
-    def __call__(self, request):
-        return super(SearchView, self).__call__(request)
+            form_class=BaseSearchForm,
+            load_all=True)
 
     def build_page(self):
         paginator = None
