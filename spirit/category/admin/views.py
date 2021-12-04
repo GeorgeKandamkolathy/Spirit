@@ -52,7 +52,7 @@ def create_subcategory(request, category_id):
         return redirect(reverse("spirit:topic:index-active"))
     return render(
         request=request,
-        template_name='spirit/category/admin/create_sub.html',
+        template_name='spirit/category/admin/create.html',
         context={'form': form})
 
 @administrator_required
