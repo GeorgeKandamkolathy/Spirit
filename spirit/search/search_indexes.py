@@ -3,6 +3,9 @@
 from django.db.models import Q
 
 from haystack import indexes
+from haystack.fields import MultiValueField
+
+from ..category.models import Category
 
 from ..core.conf import settings
 from ..topic.models import Topic
@@ -26,6 +29,20 @@ class BooleanField(indexes.BooleanField):
 
         return bool(value)
 
+class IntegerMultiValueField(MultiValueField):
+    field_type = 'integer' 
+
+    def prepare(self, obj):
+        return self.convert(super(IntegerMultiValueField, self).prepare(obj))
+
+    def convert(self, value):
+        if value is None:
+            return None
+
+        if hasattr(value, "__iter__") and not isinstance(value, int):
+            return value
+
+        return [value]
 
 TEXT_FIELD = indexes.CharField
 if settings.ST_NGRAM_SEARCH:
@@ -43,11 +60,41 @@ class TopicIndex(indexes.SearchIndex, indexes.Indexable):
     comment_count = indexes.IntegerField(model_attr='comment_count', indexed=False)
     last_active = indexes.DateTimeField(model_attr='last_active', indexed=False)
     main_category_name = indexes.CharField(indexed=False)
+    user = MultiValueField(null=True)
+    private = indexes.BooleanField(null=True)
+    removed = indexes.BooleanField(null=True)
 
+    def prepare_user(self, obj):
+        category = Category.objects.get(id=obj.category_id)
+        users = []
+        for user in category.users.all():
+            users = users + [user.id]
+        print(category.users.all())
+        return users
+    
+    def prepare_public(self, obj):
+        category = Category.objects.get(id=obj.category_id)
+        return category.is_private
+    
+    def prepare_removed(self, obj):
+        category = Category.objects.get(id=obj.category.id)
+        if obj.category.parent != None:
+            if obj.category.parent.is_removed==True:
+                print("parent")
+                return True
+        if obj.category.is_removed==True:
+            print("cat")
+            return True
+        if obj.is_removed==True:
+            print("topic")
+            return True
+        print("ok")
+        return False
+    
     # Overridden
     def get_model(self):
         return Topic
 
     # Overridden
     def index_queryset(self, using=None):
-        return (Topic.objects.visible(self.user))
+        return (Topic.objects.all())

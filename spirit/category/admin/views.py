@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.db.models.query_utils import Q
 from django.http.request import QueryDict
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, get_user_model
@@ -20,7 +21,7 @@ User = get_user_model()
 def index(request):
     categories = (
         Category.objects
-        .filter(parent=None, is_private=False)
+        .filter(Q(parent=None), Q(is_private=False) | Q(users__exact=request.user))
         .ordered())
     return render(
         request=request,
@@ -63,6 +64,10 @@ def update(request, category_id):
         instance=category)
 
     if is_post(request) and form.is_valid():
+        if ('is_removed' in post_data(request)):
+            if(post_data(request)['is_removed']):
+                categories = Category.objects.filter(parent=category)
+                categories.update(is_removed=True)
         form.save()
         messages.info(request, _("The category has been updated!"))
         return redirect(reverse("spirit:admin:category:index"))
