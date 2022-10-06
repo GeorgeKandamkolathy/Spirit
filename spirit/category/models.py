@@ -64,7 +64,7 @@ class Category(models.Model):
         else:
             return reverse(
                 'spirit:category:detail',
-                kwargs={'pk': str(self.id), 'slug': self.slug})
+                kwargs={'slug': self.slug})
 
     @property
     def is_subcategory(self):
@@ -72,3 +72,6 @@ class Category(models.Model):
             return True
         else:
             return False
+
+    def __str__(self) -> str:
+        return self.title

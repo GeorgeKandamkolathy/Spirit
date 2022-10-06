@@ -21,8 +21,9 @@ from . import utils
 @login_required
 @ratelimit(rate='1/10s')
 def publish(request, category_id=None):
+    category = None
     if category_id:
-        get_object_or_404(
+        category = get_object_or_404(
             Category.objects.visible(request.user),
             pk=category_id)
 
@@ -30,7 +31,8 @@ def publish(request, category_id=None):
     form = TopicForm(
         user=user,
         data=post_data(request),
-        initial={'category': category_id})
+        current=category
+        )
     cform = CommentForm(
         user=user,
         data=post_data(request))

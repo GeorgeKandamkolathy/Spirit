@@ -22,16 +22,26 @@ class TopicForm(forms.ModelForm):
         model = Topic
         fields = ('title', 'category')
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, user, current, *args, **kwargs):
         super(TopicForm, self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['category'] = NestedModelChoiceField(
-            queryset=Category.objects.visible(user).opened().ordered(),
-            related_name='category_set',
-            parent_field='parent_id',
-            label_field='title',
-            label=_("Category"),
-            empty_label=_("Choose a category"))
+        if current:
+            self.fields['category'] = forms.ModelChoiceField(
+                queryset = Category.objects
+                            .visible(user)
+                            .children(parent=current)
+                            .ordered(),
+                label=_("Category"),
+                to_field_name="title",
+                empty_label=_("Choose a category"))
+        else:
+            self.fields['category'] = NestedModelChoiceField(
+                queryset=Category.objects.visible(user).opened().ordered(),
+                related_name='category_set',
+                parent_field='parent_id',
+                label_field='title',
+                label=_("Category"),
+                empty_label=_("Choose a category"))
 
         if self.instance.pk and not user.st.is_moderator:
             del self.fields['category']

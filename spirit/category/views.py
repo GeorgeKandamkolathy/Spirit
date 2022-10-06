@@ -11,10 +11,10 @@ from ..topic.models import Topic
 from .models import Category
 
 
-def detail(request, pk, slug):
+def detail(request, slug):
     category = get_object_or_404(
         Category.objects.visible(request.user),
-        pk=pk)
+        slug=slug)
 
     if category.slug != slug:
         return HttpResponsePermanentRedirect(category.get_absolute_url())
