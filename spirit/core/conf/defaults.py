@@ -6,6 +6,8 @@ They can be overridden by the project settings
 """
 
 import os
+from pathlib import Path
+
 
 #: The forum URL, ex: ``"https://community.spirit-project.com/"``.
 #: This is used to construct the links in the emails: email verification,
@@ -216,3 +218,8 @@ ST_BASE_DIR = (
     os.path.dirname(
         os.path.dirname(
             os.path.dirname(__file__))))
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root', 'media')

@@ -7,6 +7,7 @@ from django.http import HttpResponsePermanentRedirect
 from djconfig import config
 
 from ..core.utils.paginator import yt_paginate
+from ..comment.models import CommentTag
 from ..topic.models import Topic
 from .models import Category
 
@@ -33,6 +34,8 @@ def detail(request, slug):
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')
         .select_related('category'))
 
+    tags = CommentTag.objects.all()
+
     topics = yt_paginate(
         topics,
         per_page=config.topics_per_page,
@@ -45,7 +48,9 @@ def detail(request, slug):
         context={
             'category': category,
             'subcategories': subcategories,
-            'topics': topics})
+            'topics': topics,
+            'tags': tags
+            })
 
 
 def index(request):

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
@@ -8,6 +9,25 @@ from django.utils import timezone
 
 from ..core.conf import settings
 from .managers import CommentQuerySet
+
+
+def get_model_file_uploader_path(instance, filename):
+    return os.path.join('reports/tags', f"{filename}")
+    
+class CommentTag(models.Model):
+
+    name = models.CharField(max_length=124, unique=True)
+
+    class Meta:
+        ordering = ['-pk']
+        verbose_name = _("commentTag")
+        verbose_name_plural = _("commentTags")
+
+    def get_absolute_url(self):
+        return reverse('spirit:comment:find', kwargs={'pk': str(self.id), })
+    
+    def __str__(self):
+        return self.name 
 
 
 class Comment(models.Model):
@@ -29,6 +49,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE)
 
     comment = models.TextField(_("comment"))
+    tag = models.ForeignKey(CommentTag, on_delete=models.CASCADE, null=True, blank=True)
     comment_html = models.TextField(_("comment html"))
     action = models.IntegerField(_("action"), choices=ACTIONS, default=COMMENT)
     date = models.DateTimeField(default=timezone.now)
@@ -90,3 +111,9 @@ class Comment(models.Model):
                 .filter(topic_id=topic_id)
                 .order_by('pk')
                 .last())
+
+
+
+
+
+

@@ -79,12 +79,18 @@
         </ul>
       {% endspaceless %}
     </div>
+
     <div class="comment__text js-comment-text">
       {% post_render_comment comment=c %}
     </div>
     <div class="comment__footer js-tabs-container">
       {% spaceless %}
       <ul class="comment__actions">
+        {% if c.tag %}
+        <li><a class="js-post" href="{% url "spirit:comment:tag_find" c.topic.category.title c.tag.name %}"
+          > {{ c.tag }}</a></li>
+        {% endif %}
+
         {% if user.is_authenticated %}
           {% if user.st.is_moderator %}
             <li><a class="js-post" href="{% url "spirit:comment:delete" c.pk %}"

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import re_path, include
+from django.urls import path
 
 from ..core.conf import settings
 import spirit.comment.bookmark.urls
@@ -27,12 +28,19 @@ urlpatterns = [
         views.delete,
         kwargs={'remove': False},
         name='undelete'),
+    re_path(r'^tag/create', views.tag_form, name='create'),
+    re_path(r'^tag/publish', views.create, name='publish_tag'),
+    path('tag/index/', views.index, name='index'),
+    path('tag/<str:category>/<str:tag_name>/', views.find_tag, name='tag_find'),
+    path('tag/delete/<str:tag_name>/', views.tag_delete, name='tag_delete'),
+    path('tag/report/<str:tag_name>/', views.comment_report, name='tag_report'),
 
     re_path(r'^bookmark/', include(spirit.comment.bookmark.urls)),
     re_path(r'^flag/', include(spirit.comment.flag.urls)),
     re_path(r'^history/', include(spirit.comment.history.urls)),
     re_path(r'^like/', include(spirit.comment.like.urls)),
     re_path(r'^poll/', include(spirit.comment.poll.urls)),
+
 ]
 
 if settings.ST_UPLOAD_IMAGE_ENABLED:

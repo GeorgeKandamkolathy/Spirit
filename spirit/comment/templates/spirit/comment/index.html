@@ -1,0 +1,40 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Tag List" %}{% endblock %}
+
+{% block content %}
+
+  <div class="layout__admin">
+
+    <h1 class="headline">{% trans "Tag List" %}</h1>
+
+    <div class="admin__category_menu">
+      <div class="admin__category_menu__new_category">
+        <a
+          class="button"
+          href="{% url "spirit:comment:create" %}"
+        >{% trans "Create Tag" %}</a>
+      </div>
+    </div>
+    <div class="admin__items_list">
+      {% for t in tags %}
+        <div class="admin__items_list__item">
+          <div class="admin__items_list__item__title">
+            <a
+              class="js-clickable-area-target"
+              href="{% url "spirit:comment:tag_find" t.name %}"
+            >{{ t.name }}</a>
+          </div>
+          <div class="admin__items_list__item__action">
+            <a
+              class="js-clickable-area-target"
+              href="{% url "spirit:comment:tag_delete" t.name %}"
+            ><i class="fa fa-cog"></i> {% trans "Delete" %}</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
