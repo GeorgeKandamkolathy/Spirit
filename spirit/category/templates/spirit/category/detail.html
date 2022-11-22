@@ -8,7 +8,17 @@
 <div class="layout__article">
   {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories %}
 
-  {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
+  <div style="display:flex; width:100%">
+    <ul style="margin-left: -18%; margin-right: 10%;">
+      <h3>Tag List</h3>
+      {% for tag in tags %}
+        <li><a href="{% url 'spirit:comment:tag_find' category.title tag.name %}">{{tag.name}}</a></li>
+      {% endfor %}
+    </ul>
+
+    {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
+  </div>
+
 
   {% render_paginator topics %}
 </div>

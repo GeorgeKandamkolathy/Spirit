@@ -1,0 +1,65 @@
+{% extends "spirit/_base.html" %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{{ tag.name }}{% endblock %}
+
+{% block content %}
+  <div class="layout__article">
+    {% spaceless %}
+      <ul class="breadcrumb_nav">
+        <li><a href="{% url "spirit:index" %}"
+        >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
+        <li>
+        {{ tag.name }}</li>
+      </ul>
+    {% endspaceless %}
+
+    <h1 class="headline">
+
+      {{ tag.name }}
+
+    </h1>
+
+    <div class="admin__category_menu">
+      <div class="admin__category_menu__new_category">
+        {% if tag.report_file %}
+          <a
+            id="download_report"
+            class="button hidden"
+            href="{{ report_url }}"
+          >{% trans "Download Report" %}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% include "spirit/comment/_render_list.html" %}
+
+  </div>
+{% endblock %}
+
+{% block extra_body %}
+<script>
+  console.log("OK")
+  $(document).ready(function () {
+    console.log("OK")
+    $("#create_report").on(click, function (e) {
+      console.log("OK")
+      $.ajax({
+       url: "{% url 'spirit:comment:tag_report' tag.name %}",
+       data: {
+       },
+       type: "GET",
+       contentType: false,
+       processData: false,
+       dataType: "json",
+       cache: false,
+       success: function(data){
+        $("#download_report").click();
+        console.log('"{{ tag.report_file.url }}"')
+       }
+      })
+    });
+  })
+</script>
+{% endblock %}

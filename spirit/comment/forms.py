@@ -14,7 +14,7 @@ from spirit.core.storage import spirit_storage
 from spirit.core.utils.markdown import Markdown
 from spirit.topic.models import Topic
 from .poll.models import CommentPoll, CommentPollChoice
-from .models import Comment
+from .models import Comment, CommentTag
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ['comment']
+        fields = ['comment', 'tag']
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -219,3 +219,14 @@ class CommentFileForm(forms.Form):
             file=self.cleaned_data['file'],
             subdir='files',
             hashed=settings.ST_PREVENT_SOME_FILE_DUPLICATION)
+
+
+class CommentTagForm(forms.ModelForm):
+
+    class Meta:
+        model = CommentTag
+        fields = ['name']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['placeholder'] = _("Write tag name...")
