@@ -15,6 +15,11 @@
       <ul class="header__tabs">
         <li><a
           class="header__tabs__item js-tab"
+          href="{% url "spirit:search:date" %}"
+          data-related=".js-date-content"
+          ><i class="fa fa-search"></i></a></li>
+        <li><a
+          class="header__tabs__item js-tab"
           href="{% url "spirit:search:search" %}"
           data-related=".js-search-content"
           ><i class="fa fa-search"></i></a></li>
@@ -74,6 +79,16 @@
       <div class="header__tabs_content__tab js-tab-content js-search-content" style="display: none;">
         <div class="header__tab__search">
           {% render_search_form %}
+        </div>
+      </div>
+      <div class="header__tabs_content__tab js-tab-content js-date-content" style="display: none;">
+        <div class="header__tab__search">
+          <form action="{% url "spirit:search:date" %}" method="post">
+            {% csrf_token %}
+            <input type="date" name="start"/>
+            <input type="date" name="end"/>
+            <input class="button" type="submit" name="post" value="{% trans "Apply" %}" />
+          </form>
         </div>
       </div>
     </div>

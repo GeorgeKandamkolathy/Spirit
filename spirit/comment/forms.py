@@ -44,6 +44,8 @@ def save_user_file(user, file, subdir, hashed=False):
     file.url = spirit_storage.url(name)
     return file
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class CommentForm(forms.ModelForm):
     comment = forms.CharField(
@@ -57,7 +59,10 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ['comment', 'tag']
+        fields = ['comment', 'tag', 'custom_date']
+        widgets = {
+            'custom_date': DateInput(),
+        }
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -69,6 +74,7 @@ class CommentForm(forms.ModelForm):
         # we don't know where the cursor should be,
         # and that'd need JS anyway
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
+        self.fields['tag']
 
     def get_comment_hash(self):
         assert self.topic

@@ -75,6 +75,7 @@
             <li><a href="{% url "spirit:comment:history:detail" comment_id=c.pk %}"
             ><i class="fa fa-pencil"></i> {{ c.modified_count }}</a></li>
           {% endif %}
+          <li title="{{ c.custom_date }}">{{ c.custom_date|shortnaturaltime }}</li>
           <li title="{{ c.date }}">{{ c.date|shortnaturaltime }}</li>
         </ul>
       {% endspaceless %}

@@ -23,13 +23,11 @@
 
     <div class="admin__category_menu">
       <div class="admin__category_menu__new_category">
-        {% if tag.report_file %}
           <a
             id="download_report"
-            class="button hidden"
+            class="button"
             href="{{ report_url }}"
           >{% trans "Download Report" %}</a>
-        {% endif %}
       </div>
     </div>
 

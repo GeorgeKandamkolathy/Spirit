@@ -228,7 +228,7 @@ def tag_delete(request, tag_name):
 def comment_report(tag_name, category):
     print(tag_name)
     tag = CommentTag.objects.get(name=tag_name)
-    comments = Comment.objects.filter(tag=tag, topic__category__title=category).values()
+    comments = Comment.objects.filter(Q(tag=tag, topic__category__title=category) | Q(tag=tag, topic__category__parent__title=category)).values()
 
     report = ReportMaker(
     temp_filepath="media_root/media/reports/tags/")
