@@ -1,0 +1,13 @@
+{% extends 'spirit/_base.html' %}
+
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Search" %}{% endblock %}
+
+{% block content %}
+  <div class="layout__article">
+      <h1 class="headline">{% trans "Results" %}</h1>
+
+        {% include "spirit/comment/_render_list.html" %}
+  </div>
+{% endblock %}

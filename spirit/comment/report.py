@@ -135,7 +135,7 @@ class ReportMaker:
 
         pdf.set_font(pdf.title_font, 'B', size=15) 
         pdf.set_text_color(0, 112, 192)
-        pdf.cell(30, txt="Summary of Executed Methods:") 
+        pdf.cell(30, txt="Summary:") 
         pdf.ln(10)
         pdf.set_font('Merriweather', '', 12)
         pdf.set_text_color(0, 0, 0)
@@ -144,7 +144,7 @@ class ReportMaker:
         pdf.set_x(15)
         link = pdf.add_link()
         pdf.set_link(link=link, page=page)
-        pdf.cell(30, txt="\u2022 Analyser Statistics........................................................................................................................." + str(page), link=link)
+        pdf.cell(30, txt="\u2022 Comment Summary ........................................................................................................................." + str(page), link=link)
         pdf.ln(10)
         page += 1
 
@@ -160,7 +160,7 @@ class ReportMaker:
         pdf.set_font('Merriweather', '', size=14)
         pdf.set_text_color(0, 112, 192)
         pdf.ln(5)
-        pdf.cell(30, txt="Summary of Analyser Stats:") 
+        pdf.cell(30, txt="Post Summary:") 
         pdf.ln(10)
         pdf.set_font('Merriweather', '', 12)
         pdf.set_text_color(0, 0, 0)
