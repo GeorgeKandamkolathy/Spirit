@@ -122,7 +122,7 @@ def find(request, pk):
     url = paginator.get_url(
         comment.topic.get_absolute_url(),
         comment_number,
-        config.comments_per_page,
+        10,
         'page')
     return redirect(url)
 
@@ -194,7 +194,7 @@ def find_tag(request, tag_name, category):
 
     comments = paginate(
         comments,
-        per_page=config.comments_per_page,
+        per_page=10,
         page_number=request.GET.get('page', 1))
 
     return render(

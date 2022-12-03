@@ -61,7 +61,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment', 'tag', 'custom_date']
         widgets = {
-            'custom_date': DateInput(),
+            'custom_date': DateInput(attrs={'style': 'background-color: #121212; border-color: white; border-style:solid;'}),
         }
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
@@ -75,6 +75,7 @@ class CommentForm(forms.ModelForm):
         # and that'd need JS anyway
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
         self.fields['tag']
+        self.fields['custom_date'].widget.attrs['required'] = 'required'
 
     def get_comment_hash(self):
         assert self.topic
