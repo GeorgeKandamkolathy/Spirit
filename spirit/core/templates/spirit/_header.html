@@ -17,7 +17,7 @@
           class="header__tabs__item js-tab"
           href="{% url "spirit:search:date" %}"
           data-related=".js-date-content"
-          ><i class="fa fa-search"></i></a></li>
+          ><i class="fa fa-calendar"></i></a></li>
         <li><a
           class="header__tabs__item js-tab"
           href="{% url "spirit:search:search" %}"
@@ -85,9 +85,9 @@
         <div class="header__tab__search">
           <form action="{% url "spirit:search:date" %}" method="post">
             {% csrf_token %}
-            <input type="date" name="start"/>
-            <input type="date" name="end"/>
-            <input class="button" type="submit" name="post" value="{% trans "Apply" %}" />
+            <input type="date" name="start" style="background-color: #121212; border-color: white; border-style:solid;"/>
+            <input type="date" name="end"  style="background-color: #121212; border-color: white; border-style:solid;"/>
+            <input class="button" type="submit" name="post" value="{% trans "Filter" %}" />
           </form>
         </div>
       </div>

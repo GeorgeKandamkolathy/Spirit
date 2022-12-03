@@ -53,7 +53,7 @@ class Comment(models.Model):
     comment_html = models.TextField(_("comment html"))
     action = models.IntegerField(_("action"), choices=ACTIONS, default=COMMENT)
     date = models.DateTimeField(default=timezone.now)
-    custom_date = models.DateTimeField(default=timezone.now)
+    custom_date = models.DateTimeField()
     is_removed = models.BooleanField(default=False)
     is_modified = models.BooleanField(default=False)
     ip_address = models.GenericIPAddressField(blank=True, null=True)
