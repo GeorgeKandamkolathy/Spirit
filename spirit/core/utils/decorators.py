@@ -4,9 +4,9 @@ from functools import wraps
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.views import redirect_to_login
-from django.shortcuts import redirect
 
 from spirit.core.conf import settings
+from spirit.core.utils.http import safe_redirect
 
 def authenticated_required(view_func):
     @wraps(view_func)
@@ -60,7 +60,7 @@ def guest_only(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(request.GET.get('next', request.user.st.get_absolute_url()))
+            return safe_redirect(request, 'next', request.user.st.get_absolute_url())
 
         return view_func(request, *args, **kwargs)
 

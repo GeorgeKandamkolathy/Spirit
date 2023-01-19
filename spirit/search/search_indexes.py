@@ -43,10 +43,18 @@ class IntegerMultiValueField(MultiValueField):
             return value
 
         return [value]
+<<<<<<< HEAD
+=======
+
+TEXT_FIELD = indexes.CharField
+if settings.ST_NGRAM_SEARCH:
+    TEXT_FIELD = indexes.NgramField
+
+>>>>>>> nitely-master
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
-    text = indexes.CharField(document=True, use_template=True, stored=False)
+    text = TEXT_FIELD(document=True, use_template=True, stored=False)
     category_id = indexes.IntegerField(model_attr='category_id', stored=False)
     is_removed = BooleanField(stored=False)
 
