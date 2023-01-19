@@ -43,14 +43,11 @@ class IntegerMultiValueField(MultiValueField):
             return value
 
         return [value]
-<<<<<<< HEAD
-=======
 
 TEXT_FIELD = indexes.CharField
 if settings.ST_NGRAM_SEARCH:
     TEXT_FIELD = indexes.NgramField
 
->>>>>>> nitely-master
 
 class TopicIndex(indexes.SearchIndex, indexes.Indexable):
 
