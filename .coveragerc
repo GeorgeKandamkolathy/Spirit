@@ -1,7 +1,0 @@
-[report]
-omit =
-    runtests.py
-    setup.py
-    */migrations/*
-    *settings*
-    project/*
