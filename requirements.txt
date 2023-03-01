@@ -2,7 +2,7 @@ Django==4.1.5
 django-haystack==3.2.1
 whoosh==2.7.4
 mistune==0.8.4
-Pillow==9.1.0
+Pillow==8.4.0
 olefile==0.46
 django-infinite-scroll-pagination>=1.1.0,<1.2
 django-djconfig==0.10.0
