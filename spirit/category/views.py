@@ -26,11 +26,13 @@ def detail(request, slug):
         .children(parent=category)
         .ordered())
 
+
     topics = (
         Topic.objects
         .unremoved()
         .with_bookmarks(user=request.user)
         .for_category(category=category)
+        .visible(request.user)
         .order_by('-is_globally_pinned', '-is_pinned', '-last_active')
         .select_related('category'))
 

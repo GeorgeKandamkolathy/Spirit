@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.db.models import Q
+from django.db.models.query import QuerySet
 from django.contrib.auth.models import AnonymousUser
 
 from ..user.models import UserProfile
@@ -22,7 +23,11 @@ class CategoryQuerySet(models.QuerySet):
             if isinstance(user, AnonymousUser):
                 return self.unremoved().public()
 
-            return self.unremoved().filter(users__exact = user) | self.unremoved().public()
+            if (not isinstance(user, QuerySet)):
+                print(self.unremoved().filter(users__exact = user))
+                return self.unremoved().filter(users__exact = user) | self.unremoved().public()
+
+            return self.unremoved().public()
 
     def opened(self):
         return self.filter(
