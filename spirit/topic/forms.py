@@ -29,7 +29,7 @@ class TopicForm(forms.ModelForm):
             self.fields['category'] = forms.ModelChoiceField(
                 queryset = Category.objects
                             .visible(user)
-                            .children(parent=current)
+                            .childrenAndParent(parent=current)
                             .ordered(),
                 label=_("Category"),
                 to_field_name="title",

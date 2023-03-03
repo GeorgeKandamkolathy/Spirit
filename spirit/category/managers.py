@@ -42,6 +42,12 @@ class CategoryQuerySet(models.QuerySet):
             return self.none()
 
         return self.filter(parent=parent)
+    
+    def childrenAndParent(self, parent):
+        if parent.is_subcategory:
+            return self.filter(id=parent.id)
+
+        return self.filter(parent=parent) | self.filter(id=parent.id)
 
     def ordered(self):
         if settings.ST_ORDERED_CATEGORIES:
