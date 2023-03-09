@@ -56,32 +56,6 @@
   --st-bg-checkbox: var(--st-bg-prim);
   --st-br-checkbox: var(--st-bg-sec);
   --st-text-error-list: var(--st-highlight-prim); }
-
-@media screen and (prefers-color-scheme: dark) {
-  :root {
-    --st-text-prim: #cecece;
-    --st-text-sec: #979797;
-    --st-bg-prim: #121212;
-    --st-bg-sec: #222222;
-    --st-bg-ter: #1c1c1c;
-    --st-bg-qua: #181818;
-    --st-bg-qui: #131313;
-    --st-text-selected-prim: #ececec;
-    --st-highlight-prim: #830000;
-    --st-text-button: var(--st-text-sec);
-    --st-bg-input: #181818;
-    --st-bg-checkbox: #black;
-    --st-bg-comment-user-admin: #979733;
-    --st-bg-comment-user-mod: #2e8f38;
-    --st-bg-comment-user-topic-owner: #2e658f;
-    --st-bg-message-info: #13232f;
-    --st-text-message-info: #95a2a7;
-    --st-bg-message-error: #5e0000;
-    --st-bg-selection: #cecece;
-    --st-text-selection: #1c1c1c;
-    --st-bg-unread: #13232f;
-    --st-bg-comment-diff-ins: #003e00;
-    --st-bg-comment-diff-del: #5e0000; } }
 @font-face {
   font-family: 'Ubuntu';
   font-style: normal;

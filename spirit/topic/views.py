@@ -29,11 +29,12 @@ def publish(request, category_id=None):
             pk=category_id)
 
     user = request.user
+    print(post_data(request))
     form = TopicForm(
         user=user,
         data=post_data(request),
         current=category
-        )
+    )
     cform = CommentForm(
         user=user,
         data=post_data(request))

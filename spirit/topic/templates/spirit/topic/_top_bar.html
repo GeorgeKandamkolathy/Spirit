@@ -1,8 +1,9 @@
-{% load i18n %}
+{% load spirit_tags i18n %}
+
 
 <div class="layout__menu">
-  <div class="menu__dropdown js-tabs-container" style="width:70%">
-    <div class="menu__dropdown_button" style="width:70%">
+  <div class="menu__dropdown js-tabs-container" style="width:50%">
+    <div class="menu__dropdown_button" style="width:50%">
       {% if category %}
         <a
           class="dropdown_button js-tab"
@@ -14,10 +15,10 @@
           class="dropdown_button js-tab"
           href="#"
           data-related=".js-categories-content"
-        >{% trans "All Categories" %} <i class="fa fa-chevron-down"></i></a>
+        >{% trans "All Projects" %} <i class="fa fa-chevron-down"></i></a>
       {% endif %}
     </div>
-    <div class="menu_list_wrapper js-tab-content js-categories-content" style="display: none;">
+    <div class="menu_list_wrapper js-tab-content js-categories-content" style="position: fixed; margin-top: 2%; background-color: gray; padding: 2px; display: none;">
       {% spaceless %}
         <ul class="menu_list">
           {% for c in categories %}
@@ -35,21 +36,87 @@
       {% endspaceless %}
     </div>
   </div>
-  <div style="display:flex;">
-  <div class="menu__new_topic">
-    {% if category %}
-      <a class="button" href="{% url "spirit:admin:category:create_sub" category.pk%}"
-      >{% trans "Create Category" %}</a>
-    {% endif %}
-  </div>
-  <div class="menu__new_topic">
-    {% if category %}
-      <a class="button" href="{% url "spirit:topic:publish" category.pk %}"
-      >{% trans "Create Topic" %}</a>
-    {% else %}
-      <a class="button" href="{% url "spirit:topic:publish" %}"
-      >{% trans "Create Topic" %}</a>
-    {% endif %}
-  </div>
+  <div class="menu__dropdown js-tabs-container" style="width: 45%">
+    {% spaceless %}
+      <ul class="header__tabs">
+        <li><a
+          class="header__tabs__item js-tab"
+          href="{% url "spirit:search:date" %}"
+          data-related=".js-date-content"
+          ><i class="fa fa-calendar"></i></a></li>
+        <li><a
+          class="header__tabs__item js-tab"
+          href="{% url "spirit:search:search" %}"
+          data-related=".js-search-content"
+          ><i class="fa fa-search"></i></a></li>
+        <li><a
+          class="header__tabs__item js-tab-notification{% if has_notifications %} is-highlighted{% endif %}"
+          href="{% url "spirit:topic:notification:index" %}"
+          data-related=".js-notifications-content"
+          data-content=".js-notifications-content-list"
+          ><i class="fa fa-bell"></i></a></li>
+        <li><a
+          class="header__tabs__item js-tab"
+          href="{% url "spirit:user:menu" %}"
+          data-related=".js-user-content"
+          >{{ user.st.nickname }} <i class="fa fa-chevron-down"></i></a></li>
+      </ul>
+    {% endspaceless %}
+
+    <div class="header__tabs_content" style="margin-left: 70%;">
+      <div class="header__tabs_content__tab js-tab-content js-user-content" style="position: absolute; left:87%; background-color: gray; padding: 2px; display: none;">
+        <nav class="header__tab__nav">
+          {% spaceless %}
+          <ul class="menu_list">
+            <li><a
+              class="menu_list__link"
+              href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}"
+              >{% trans "Profile" %}</a></li>
+            <li><a
+              class="menu_list__link"
+              href="{% url "spirit:topic:index-active" %}"
+              >{% trans "Topics" %}</a></li>
+            <li><a
+              class="menu_list__link"
+              href="{% url "spirit:topic:unread:index" %}"
+              >{% trans "Unread topics" %}</a></li>
+            <li><a
+              class="menu_list__link"
+              href="{% url "spirit:topic:private:index" %}"
+              >{% trans "Private topics" %}</a></li>
+            {% if user.st.is_administrator %}
+              <li><a
+                class="menu_list__link"
+                href="{% url "spirit:admin:index" %}"
+                >{% trans "Admin" %}</a></li>
+            {% endif %}
+            <li><a
+              class="menu_list__link js-post"
+              href="{% url "spirit:user:auth:logout" %}?next={% firstof request.get_full_path|urlencode '/' %}"
+              >{% trans "Log out" %}</a></li>
+          </ul>
+          {% endspaceless %}
+        </nav>
+      </div>
+      <div class="header__tabs_content__tab js-tab-content js-notifications-content" style="position: absolute; left:80%; display: none;">
+        <div class="header__tab__bell js-notifications-content-list">
+        </div>
+      </div>
+      <div class="header__tabs_content__tab js-tab-content js-search-content" style="position: absolute; left:80%; display: none;">
+        <div class="header__tab__search">
+          {% render_search_form %}
+        </div>
+      </div>
+      <div class="header__tabs_content__tab js-tab-content js-date-content" style="position: absolute; left:80%; display: none;">
+        <div class="header__tab__search">
+          <form action="{% url "spirit:search:date" %}" method="post">
+            {% csrf_token %}
+            <input type="date" name="start" style="background-color: white; border-color: gray; border-style:solid;"/>
+            <input type="date" name="end"  style="background-color: white; border-color: gray; border-style:solid;"/>
+            <input class="button" type="submit" name="post" value="{% trans "Filter" %}" />
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

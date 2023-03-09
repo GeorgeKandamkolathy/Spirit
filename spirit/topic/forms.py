@@ -25,7 +25,13 @@ class TopicForm(forms.ModelForm):
     def __init__(self, user, current, *args, **kwargs):
         super(TopicForm, self).__init__(*args, **kwargs)
         self.user = user
-        if current:
+        if current == "TargetCreationForm":
+            self.fields['category'] = forms.ModelChoiceField(
+                queryset = Category.objects.all(),
+                label=_("Category"),
+                to_field_name="title",
+                empty_label=_("Choose a category"))
+        elif current:
             self.fields['category'] = forms.ModelChoiceField(
                 queryset = Category.objects
                             .visible(user)

@@ -74,3 +74,6 @@ docs/_build/
 
 # Tx
 .transifexrc
+
+*.Pyc
+.DS_Store

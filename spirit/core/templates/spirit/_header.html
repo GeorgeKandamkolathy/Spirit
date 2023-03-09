@@ -1,7 +1,7 @@
 {% load spirit_tags i18n %}
 {% load_settings 'LOGIN_URL' %}
 
-<header class="layout__header js-tabs-container">
+<header class="layout__header js-tabs-container" style="max-width: 90%;">
   <div class="header__logo_wrapper">
     {% block custom_header_logo %}
       <a class="header__logo" href="{% url "spirit:index" %}"

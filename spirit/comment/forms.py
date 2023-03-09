@@ -61,7 +61,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment', 'tag', 'custom_date']
         widgets = {
-            'custom_date': DateInput(attrs={'style': 'background-color: #121212; border-color: white; border-style:solid;'}),
+            'custom_date': DateInput(attrs={'style': 'background-color: white; border-color: grey; border-style:solid;'}),
         }
 
     def __init__(self, user=None, topic=None, *args, **kwargs):
