@@ -57,31 +57,31 @@
             ><i class="fa fa-comments"></i> {% trans "Select comments to move" %}</a></li>
             {% if topic.is_removed %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:undelete" topic.pk %}"
-              ><i class="fa fa-trash-o"></i> {% trans "Undelete topic" %}</a></li>
+              ><i class="fa fa-trash-o"></i> {% trans "Undelete Target" %}</a></li>
             {% else %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:delete" topic.pk %}"
-              ><i class="fa fa-trash-o"></i> {% trans "Delete topic" %}</a></li>
+              ><i class="fa fa-trash-o"></i> {% trans "Delete Target" %}</a></li>
             {% endif %}
             {% if topic.is_closed %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:unlock" topic.pk %}"
-              ><i class="fa fa-unlock"></i> {% trans "Open topic" %}</a></li>
+              ><i class="fa fa-unlock"></i> {% trans "Open Target" %}</a></li>
             {% else %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:lock" topic.pk %}"
-              ><i class="fa fa-lock"></i> {% trans "Close topic" %}</a></li>
+              ><i class="fa fa-lock"></i> {% trans "Close Target" %}</a></li>
             {% endif %}
             {% if topic.is_pinned %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:unpin" topic.pk %}"
-              ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic" %}</a></li>
+              ><i class="fa fa-thumb-tack"></i> {% trans "Unpin Target" %}</a></li>
             {% else %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:pin" topic.pk %}"
-              ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic" %}</a></li>
+              ><i class="fa fa-thumb-tack"></i> {% trans "Pin Target" %}</a></li>
             {% endif %}
             {% if topic.is_globally_pinned %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:global-unpin" topic.pk %}"
-              ><i class="fa fa-thumb-tack"></i> {% trans "Unpin topic globally" %}</a></li>
+              ><i class="fa fa-thumb-tack"></i> {% trans "Unpin Target globally" %}</a></li>
             {% else %}
               <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:global-pin" topic.pk %}"
-              ><i class="fa fa-thumb-tack"></i> {% trans "Pin topic globally" %}</a></li>
+              ><i class="fa fa-thumb-tack"></i> {% trans "Pin Tarhet globally" %}</a></li>
             {% endif %}
           </ul>
           {% endspaceless %}
