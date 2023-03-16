@@ -2,17 +2,20 @@
 
 {% load spirit_tags i18n %}
 
+
 {% block title %}{% trans "Search" %}{% endblock %}
 
 {% block content %}
+<div style="display: flex; align-items:center">
+  <i class="fa fa-chevron-left" style="margin-right: 3%;"></i>
+  <a href="/forum/"> Back </a>
+</div>
   <div class="layout__article">
-    {% if not query %}
       <h1 class="headline">{% trans "Search" %}</h1>
-      <form method="get" action="{% url "spirit:search:search" %}">
-        {% include "spirit/_form.html" %}
-        <input class="button" type="submit" value="{% trans "Search" %}" />
+      <form method="get" action="{% url "spirit:search:search" %}" style="display: flex; align-items: center; margin-bottom: 2%;">
+        {% include "spirit/_form_search_result.html" %}
+        <input class="button" type="submit" value="{% trans "Search" %}" style="margin-left: 1%;" />
       </form>
-    {% else %}
       <h1 class="headline">{% trans "Results" %}</h1>
       {% if page %}
         {% include "spirit/search/_render_list.html" with topics=page %}
@@ -20,6 +23,5 @@
       {% else %}
         <p>{% trans "There are no search results." %}</p>
       {% endif %}
-    {% endif %}
   </div>
 {% endblock %}

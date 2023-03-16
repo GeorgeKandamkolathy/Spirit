@@ -12,7 +12,7 @@
       style="background-color:{% get_avatar_color p_user.pk %};"
     >{{ p_user.st.nickname.0.upper }}</div>
   {% endif %}
-  <div class="profile__img__username">{{ p_user.st.nickname }}</div>
+  <div class="profile__img__username">{{ p_user.st.user.first_name }}  {{ p_user.st.user.last_name }}</div>
 </div>
 
 <div class="profile__info">

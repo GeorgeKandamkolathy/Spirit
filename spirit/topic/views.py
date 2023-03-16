@@ -108,9 +108,7 @@ def detail(request, pk, slug):
 def index_active(request):
     categories = (
         Category.objects
-        .visible(request.user)
-        .parents()
-        .ordered())
+        .visible(request.user))
 
     topics = (
         Topic.objects

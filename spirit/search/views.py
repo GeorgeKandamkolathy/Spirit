@@ -39,7 +39,7 @@ class SearchView(BaseSearchView):
 
     def build_page(self):
         paginator = None
-        results = self.results.filter((SQ(user__contains=self.request.user.id) | SQ(private='false')), SQ(removed='false'))
+        results = self.results.visible(self.request.user)
         for result in self.results:
             print(result.user)
             print(str(self.request.user.id))
@@ -48,7 +48,8 @@ class SearchView(BaseSearchView):
             per_page=config.topics_per_page,
             page_number=self.request.GET.get('page', 1))
         page = [
-            {'fields': r.get_stored_fields(), 'pk': r.pk}
+            {'title': r.title, 'main_category_name':r.category.title, 'comment_count': r.comment_count, 'last_active': r.last_active,
+             'pk': r.pk}
             for r in page]
         return paginator, page
     

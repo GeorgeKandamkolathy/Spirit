@@ -5,8 +5,19 @@
 {% block title %}{% trans "Search" %}{% endblock %}
 
 {% block content %}
+<div style="display: flex; align-items:center">
+  <i class="fa fa-chevron-left" style="margin-right: 3%;"></i>
+  <a href="/forum/"> Back </a>
+</div>
   <div class="layout__article">
       <h1 class="headline">{% trans "Results" %}</h1>
+
+      <form action="{% url "spirit:search:date" %}" method="post" style=" display: flex; margin-bottom: 2%;">
+        {% csrf_token %}
+        <input type="date" name="start" style="background-color: white; border-color: gray; border-style:solid;"/>
+        <input type="date" name="end"  style="background-color: white; border-color: gray; border-style:solid;"/>
+        <input class="button" type="submit" name="post" value="{% trans "Filter" %}" style="margin-left: 2%;"/>
+      </form>
 
         {% include "spirit/comment/_render_list.html" %}
   </div>

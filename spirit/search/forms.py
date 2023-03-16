@@ -18,9 +18,15 @@ from ..category.models import Category
 User = get_user_model()
 
 class BaseSearchForm(SearchForm):
+    q = forms.CharField(
+        required=False,
+        label=_("Search"),
+        widget=forms.TextInput(attrs={"type": "search", "placeholder": "Search"}),
+    )
 
     def search(self):
-        return  SearchQuerySet().filter(content__startswith=self.cleaned_data['q'])
+        filtered = Topic.objects.filter(title__icontains=self.cleaned_data['q'], is_removed=0)
+        return filtered
 
     def clean_q(self):
         '''

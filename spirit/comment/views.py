@@ -35,7 +35,7 @@ def publish(request, topic_id, pk=None):
 
     user = request.user
     topic = get_object_or_404(
-        Topic.objects.opened().for_access(user),
+        Topic.objects.visible(user),
         pk=topic_id)
     form = CommentForm(
         user=user,
