@@ -2,13 +2,13 @@
 
 {% load spirit_tags i18n %}
 
-{% block title %}{% trans "Pinned topics" %}{% endblock %}
+{% block title %}{% trans "Pinned Targets" %}{% endblock %}
 
 {% block content %}
 <div class="layout__admin">
-  {% include "spirit/admin/_nav_menu.html" with active="topics" %}
+  {% include "spirit/admin/_nav_menu.html" with active="Topics" %}
 
-  <h1 class="headline">{% trans "Pinned topics" %}</h1>
+  <h1 class="headline">{% trans "Pinned Targets" %}</h1>
 
   {% include "spirit/topic/admin/_tabs.html" with active_tab="pinned" %}
 

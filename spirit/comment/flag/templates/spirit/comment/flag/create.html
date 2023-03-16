@@ -7,7 +7,7 @@
 {% block content %}
 <div class="layout__article">
   <h1 class="headline">
-    {% blocktrans trimmed with username=comment.user.st.nickname %}
+    {% blocktrans trimmed with username=comment.user.st.user.first_name %}
       Reporting {{ username }}'s comment
     {% endblocktrans %}
   </h1>

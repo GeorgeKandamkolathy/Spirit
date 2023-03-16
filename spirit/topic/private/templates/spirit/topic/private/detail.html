@@ -8,7 +8,7 @@
   <div class="layout__comments">
     <ul class="breadcrumb_nav">
       <li><a href="{% url "spirit:topic:private:index" %}"
-      >{% trans "Private topics" %}</a></li>
+      >{% trans "Private Targets" %}</a></li>
     </ul>
 
     <h1 class="headline">{{ topic.title }}</h1>
@@ -30,7 +30,7 @@
                   <a
                     class="menu_list__participant__user"
                     href="{{ tp.user.st.get_absolute_url }}"
-                  >{{ tp.user.st.nickname }}</a>
+                  >{{ tp.user.st.user.first_name}} {{ tp.user.st.user.last_name}}</a>
                   {% if user.pk == topic.user.pk %}
                     <a
                       class="menu_list__participant__remove"
@@ -77,7 +77,7 @@
         <a
           class="comment__reply__info__link"
           href="{{ user.st.get_absolute_url }}"
-        >{{ user.st.nickname }}</a>
+        >{{ user.st.user.first_name}} {{ user.st.user.last_name}}</a>
         <div class="comment__reply__info__realname">
           {{ user.get_full_name }}
         </div>

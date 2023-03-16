@@ -12,7 +12,7 @@
           <a
             class="comment__info__username__link"
             href="{{ c.user.st.get_absolute_url }}"
-          ><span>{{ c.user.st.nickname }}</span>
+          ><span>{{ c.user.st.user.first_name}} {{ c.user.st.user.last_name}}</span>
             {% if c.user.pk == c.topic.user_id %}
               <i class="fa fa-microphone is-owner"></i>
             {% endif %}

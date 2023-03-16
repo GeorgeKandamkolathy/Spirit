@@ -8,11 +8,11 @@
 
       <div class="layout__list__item__title">
         {% if n.is_comment %}
-          {% blocktrans trimmed with username=n.comment.user.st.nickname topic_title=n.topic.title %}
+          {% blocktrans trimmed with username=n.comment.user.st.user.first_name topic_title=n.topic.title %}
             <a href="{{ url_profile }}">{{ username }}</a> has commented on <a href="{{ url_topic }}">{{ topic_title }}</a>
           {% endblocktrans %}
         {% elif n.is_mention %}
-          {% blocktrans trimmed with username=n.comment.user.st.nickname topic_title=n.topic.title %}
+          {% blocktrans trimmed with username=n.comment.user.st.user.first_name topic_title=n.topic.title %}
             <a href="{{ url_profile }}">{{ username }}</a> has mention you on <a href="{{ url_topic }}">{{ topic_title }}</a>
           {% endblocktrans %}
         {% else %}

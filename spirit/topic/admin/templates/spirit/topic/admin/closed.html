@@ -2,13 +2,13 @@
 
 {% load spirit_tags i18n %}
 
-{% block title %}{% trans "Closed topics" %}{% endblock %}
+{% block title %}{% trans "Closed Targets" %}{% endblock %}
 
 {% block content %}
 <div class="layout__admin">
-  {% include "spirit/admin/_nav_menu.html" with active="topics" %}
+  {% include "spirit/admin/_nav_menu.html" with active="Targets" %}
 
-  <h1 class="headline">{% trans "Closed topics" %}</h1>
+  <h1 class="headline">{% trans "Closed Targets" %}</h1>
 
   {% include "spirit/topic/admin/_tabs.html" with active_tab="closed" %}
 

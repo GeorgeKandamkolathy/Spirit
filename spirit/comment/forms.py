@@ -52,6 +52,11 @@ class CommentForm(forms.ModelForm):
         label=_('Comment'),
         max_length=settings.ST_COMMENT_MAX_LEN,
         widget=forms.Textarea)
+    tag = forms.ModelChoiceField(
+        queryset=CommentTag.objects.all(),
+        empty_label="Select Tag...",
+        required= False
+    )
     comment_hash = forms.CharField(
         max_length=32,
         widget=forms.HiddenInput,
@@ -61,9 +66,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment', 'tag', 'custom_date']
         widgets = {
-            'custom_date': DateInput(attrs={'style': 'background-color: white; border-color: grey; border-style:solid;'}),
+            'custom_date': DateInput(attrs={'style': 'background-color: white; border-color: grey; border-style:solid; height:35px; margin-bottom:10px; margin-top:10px'}),
         }
-
     def __init__(self, user=None, topic=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -74,7 +78,6 @@ class CommentForm(forms.ModelForm):
         # we don't know where the cursor should be,
         # and that'd need JS anyway
         self.fields['comment'].widget.attrs['placeholder'] = _("Write comment...")
-        self.fields['tag']
         self.fields['custom_date'].widget.attrs['required'] = 'required'
 
     def get_comment_hash(self):

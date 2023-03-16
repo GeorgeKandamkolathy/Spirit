@@ -32,6 +32,7 @@ class Category(models.Model):
         on_delete=models.CASCADE)
 
     title = models.CharField(_("title"), max_length=75)
+    project_id = models.IntegerField(default=0)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     description = models.CharField(_("description"), max_length=255, blank=True)
     color = models.CharField(

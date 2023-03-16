@@ -24,7 +24,8 @@ class CategoryForm(forms.ModelForm):
             "is_removed",
             "is_private",
             "color",
-            "users"
+            "users",
+            "project_id"
             )
 
     def __init__(self, *args, **kwargs):

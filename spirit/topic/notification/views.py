@@ -70,7 +70,7 @@ def index_ajax(request):
             .with_related_data())
     notifications = notifications[:settings.ST_NOTIFICATIONS_PER_PAGE]
     notifications = [
-        {'user': escape(n.comment.user.st.nickname),
+        {'user': escape(n.comment.user.st.user.first_name),
          'action': n.action,
          'title': escape(n.topic.title),
          'url': n.get_absolute_url(),

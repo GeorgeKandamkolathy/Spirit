@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
@@ -34,7 +34,7 @@ def _moderate(request, pk, field_name, to_value, action=None, message=None):
         if message is not None:
             messages.info(request, message)
 
-        return safe_redirect(request, 'next', topic.get_absolute_url(), method='POST')
+        return redirect('spirit:index')
 
     return render(
         request=request,

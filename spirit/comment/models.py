@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.db.models import F
 from django.utils import timezone
+from datetime import datetime
 
 from ..core.conf import settings
 from .managers import CommentQuerySet
@@ -103,7 +104,9 @@ class Comment(models.Model):
             topic=topic,
             action=action,
             comment="action",
-            comment_html="action")
+            comment_html="action",
+            custom_date=datetime.now()
+            )
 
     @classmethod
     def get_last_for_topic(cls, topic_id):

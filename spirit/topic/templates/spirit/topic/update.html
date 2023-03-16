@@ -5,6 +5,10 @@
 {% block title %}{% trans "Update topic" %}{% endblock %}
 
 {% block content %}
+<div style="display: flex; align-items:center">
+  <i class="fa fa-chevron-left" style="margin-right: 3%;"></i>
+  <a href="/forum/"> Back </a>
+</div>
   <div class="layout__article">
     <h1 class="headline">{% trans "Update topic" %}</h1>
     <form action="." method="post">

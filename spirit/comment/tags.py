@@ -59,7 +59,7 @@ def get_comment_action_text(comment):
         user=format_html(
             user_frag,
             url=comment.user.st.get_absolute_url(),
-            user=comment.user.st.nickname),
+            user=comment.user.st.user.first_name),
         time_ago=format_html(
             date_frag,
             title=date_format(comment.date, "DATETIME_FORMAT"),

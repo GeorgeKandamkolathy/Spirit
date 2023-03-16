@@ -19,15 +19,15 @@
         <li><a
           class="menu_list__link"
           href="{% url "spirit:topic:index-active" %}"
-        >{% trans "Topics" %}</a></li>
+        >{% trans "Targets" %}</a></li>
         <li><a
           class="menu_list__link"
           href="{% url "spirit:topic:unread:index" %}"
-        >{% trans "Unread topics" %}</a></li>
+        >{% trans "Unread Targets" %}</a></li>
         <li><a
           class="menu_list__link"
           href="{% url "spirit:topic:private:index" %}"
-        >{% trans "Private topics" %}</a></li>
+        >{% trans "Private Targets" %}</a></li>
         {% if user.st.is_administrator %}
           <li><a
             class="menu_list__link"

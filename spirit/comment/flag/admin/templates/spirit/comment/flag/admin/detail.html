@@ -22,7 +22,7 @@
         {% trans "Moderated by" %}:
       </div>
       <div class="admin__flag_menu__mod_by__user">
-        <a href="{{ flag.moderator.get_absolute_url }}">{{ flag.moderator.st.nickname }}</a>
+        <a href="{{ flag.moderator.get_absolute_url }}">{{ flag.moderator.st.user.first_name }} {{ flag.moderator.st.user.last_name }}</a>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
           <a
             class="comment__info__username__link"
             href="{{ flag.comment.user.st.get_absolute_url }}"
-          >{{ flag.comment.user.st.nickname }}</a>
+          >{{ flag.comment.user.st.user.first_name }} {{ flag.comment.user.st.user.last_name }}</a>
         </div>
         <ul class="comment__info__date">
           <li title="{{ flag.comment.date }}">{{ flag.comment.date|shortnaturaltime }}</li>
@@ -87,7 +87,7 @@
           <a
             class="comment__info__username__link"
             href="{{ f.user.st.get_absolute_url }}"
-          >{{ f.user.st.nickname }}</a>
+          >{{ f.user.st.user.first_name}} {{ f.user.st.user.last_name}}</a>
         </div>
         <ul class="comment__info__date">
           <li title="{{ f.date }}">{{ f.date|shortnaturaltime }}</li>

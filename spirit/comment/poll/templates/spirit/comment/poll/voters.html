@@ -19,7 +19,7 @@
           <a
             class="layout__list__item__link"
             href="{{ v.voter.st.get_absolute_url }}"
-          >{{ v.voter.st.nickname }}</a>
+          >{{ c.user.st.user.first_name}} {{ c.user.st.user.last_name}}</a>
         </div>
         <div class="layout__list__item__date">
           <i class="fa fa-clock-o"></i> {{ v.created_at|shortnaturaltime }}

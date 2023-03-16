@@ -62,6 +62,7 @@ def update(request, pk):
     topic = Topic.objects.for_update_or_404(pk, request.user)
     category_id = topic.category_id
     form = TopicForm(
+        current="TargetCreationForm",
         user=request.user,
         data=post_data(request),
         instance=topic)

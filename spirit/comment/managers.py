@@ -36,9 +36,7 @@ class CommentQuerySet(models.QuerySet):
         return self.filter(topic=topic)
 
     def _access(self, user):
-        return self.filter(
-            Q(topic__category__is_private=False) |
-            Q(topic__topics_private__user=user))
+        return self.unremoved()
 
     def with_likes(self, user):
         if not user.is_authenticated:
@@ -81,7 +79,7 @@ class CommentQuerySet(models.QuerySet):
         return self.prefetch_related(prefetch_polls, prefetch_choices, prefetch_votes)
 
     def for_access(self, user):
-        return self.unremoved()._access(user=user)
+        return self.unremoved()
 
     def for_update_or_404(self, pk, user):
         if user.st.is_moderator:
