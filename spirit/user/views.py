@@ -150,10 +150,7 @@ def comments(request, pk, slug):
     # todo: test with_polls!
     user_comments = (
         Comment.objects
-        .filter(user_id=pk)
-        .visible()
-        .with_polls(user=request.user)
-        .select_related('topic'))
+        .filter(user_id=pk))
 
     return _activity(
         request, pk, slug,

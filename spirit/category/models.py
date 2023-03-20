@@ -12,6 +12,8 @@ from ..user.models import UserProfile
 from ..core.conf import settings
 from ..core.utils.models import AutoSlugField
 from .managers import CategoryQuerySet
+from django.utils.text import slugify
+
 
 User = get_user_model()
 
@@ -33,7 +35,7 @@ class Category(models.Model):
 
     title = models.CharField(_("title"), max_length=75)
     project_id = models.IntegerField(default=0)
-    slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
+    slug = models.SlugField(max_length=200, unique=True)
     description = models.CharField(_("description"), max_length=255, blank=True)
     color = models.CharField(
         _("color"), max_length=7, blank=True,
@@ -66,6 +68,21 @@ class Category(models.Model):
             return reverse(
                 'spirit:category:detail',
                 kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        """Override the save method to auto-generate a slug and add the owner to members if not already exist"""
+        if not self.pk:
+            # If the project hasn't been created yet, it won't have a PK, thus we can auto-generate the slug
+            self.slug = slugify(self.title)
+
+            # The slug should be unique and if it exists already, append a counter to the end
+            suffix = Category.objects.filter(slug__startswith=self.slug).count()
+
+            if suffix:
+                self.slug = f'{self.slug}-{suffix + 1}'
+
+        # Have to save the model before accessing many-to-many fields
+        super().save(*args, **kwargs)
 
     @property
     def is_subcategory(self):

@@ -29,7 +29,7 @@ class TopicForm(forms.ModelForm):
             self.fields['category'] = forms.ModelChoiceField(
                 queryset = Category.objects.all(),
                 label=_("Category"),
-                to_field_name="title",
+                to_field_name="slug",
                 empty_label=_("Choose a category"))
         elif current:
             self.fields['category'] = forms.ModelChoiceField(

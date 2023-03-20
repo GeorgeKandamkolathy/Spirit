@@ -65,8 +65,7 @@ def _evaluate(polls_by_name, comment, request, csrf_token):
 
 
 def render_polls(comment, request, csrf_token):
-    if not comment.polls:
-        return comment.comment_html
+    return comment.comment_html
 
     evaluate = _evaluate(
         polls_by_name={poll.name: poll for poll in comment.polls},

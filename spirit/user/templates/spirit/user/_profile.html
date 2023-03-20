@@ -37,12 +37,6 @@
 </div>
 
 {% if user.username == p_user.username %}
-  <div class="profile__profile_preferences">
-    <a
-      class="button"
-      href="{% url "spirit:user:update" %}"
-    ><i class="fa fa-cog"></i> {% trans "Preferences" %}</a>
-  </div>
   {% else %}
   <div class="profile__private_message">
     <a
@@ -53,12 +47,6 @@
 {% endif %}
 
 {% if user.st.is_administrator %}
-  <div class="profile__profile_preferences">
-    <a
-      class="button"
-      href="{% url "spirit:admin:user:edit" user_id=p_user.pk %}"
-    ><i class="fa fa-cog"></i> {% trans "Edit user" %}</a>
-  </div>
 {% endif %}
 
 {% spaceless %}

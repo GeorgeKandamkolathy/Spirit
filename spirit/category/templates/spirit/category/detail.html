@@ -9,7 +9,7 @@
   {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories %}
 
   <div style="display:flex; width:100%">
-    <ul style="margin-left: -18%; margin-right: 10%;">
+    <ul style="margin-right: 10%;">
       <h3>Tag List</h3>
       {% for tag in tags %}
         <li><a href="{% url 'spirit:comment:tag_find' category.title tag.name %}">{{tag.name}}</a></li>
