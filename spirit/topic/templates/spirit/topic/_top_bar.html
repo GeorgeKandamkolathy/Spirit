@@ -1,114 +1,186 @@
 {% load spirit_tags i18n %}
 
 
-<div class="layout__menu" style="align-items:center;">
-  <div class="menu__dropdown js-tabs-container" style="width:25%">
-    <div class="menu__dropdown_button" style="">
+<style>
+  *{
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  .nav-link-custom:hover {
+    background-color: #ddeeee !important; /* change to desired color */
+  }
+  .nav-link-custom{
+    color:#232D67 !important;
+    background-color:white !important;
+  }
+  
+</style>
+<div class="layout__menu bg-ofx-blue-light align-items-center" >
+  
+  <div class="menu__dropdown js-tabs-container me-5" id="project-menu" >
+    <div class="menu__dropdown_button ms-2" style="" >
       {% if category %}
-        <a
-          class="dropdown_button js-tab"
+        <a 
+          class="dropdown_button js-tab text-white fw-bold"
           href="#"
           data-related=".js-categories-content"
         >{{ category.title }} <i class="fa fa-chevron-down"></i></a>
       {% else %}
-        <a
-          class="dropdown_button js-tab"
+        <a 
+          class="dropdown_button js-tab text-white fw-bold"
           href="#"
           data-related=".js-categories-content"
         >{% trans "All Projects" %} <i class="fa fa-chevron-down"></i></a>
       {% endif %}
     </div>
-    <div class="menu_list_wrapper js-tab-content js-categories-content" style="position: fixed; margin-top: 2%; background-color: gray; padding: 2px; display: none;">
+   
+      <div class="menu_list_wrapper js-tab-content js-categories-content bg-light mt-4" style="position: absolute;display: none;">
       {% spaceless %}
-        <ul class="menu_list">
+        <ul class="menu_list shadow " >
           {% for c in categories %}
-            <li><a class="menu_list__link" href="{{ c.get_absolute_url }}"
+            <li><a class="menu_list__link  nav-link-custom " href="{{ c.get_absolute_url }}" style="" 
             >{{ c.title }}</a></li>
           {% endfor %}
           {% if category.parent %}
-            <li><a class="menu_list__link" href="{{ category.parent.get_absolute_url }}"
+            <li><a class="menu_list__link nav-link-custom" href="{{ category.parent.get_absolute_url }}" 
             >{% trans "All Projects" %}</a></li>
           {% else %}
-            <li><a class="menu_list__link" href="{% url "spirit:topic:index-active" %}"
+            <li><a class="menu_list__link nav-link-custom" href="{% url 'spirit:topic:index-active' %}" 
             >{% trans "All Projects" %}</a></li>
           {% endif %}
         </ul>
       {% endspaceless %}
     </div>
   </div>
-  <div class="js-tabs-container" style="width: 80%; display: flex; align-items: center;">
-    <div class="header__tab__search">
+  {% if category  %}
+
+  <div class="menu__dropdown js-tabs-container ms-3" id="tags-menu" >
+    <div class="menu__dropdown_button ms-2" style="">
+      <a class="dropdown_button js-tab text-white fw-bold" data-related=".js-tags-content" href="#"> {% trans "Tags List" %} 
+        <i class="fa fa-chevron-down"></i>  
+      </a>
+      
+    </div>
+    {% if tags and  tags|length > 0 %}
+    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light mt-4" style="position: absolute;display: none;">
+      {% spaceless %}
+      <ul class="menu_list shadow">
+  
+        {% for tag in tags %}
+          <li>
+            <a class="nav-link-custom menu_list__link" href="{% url 'spirit:comment:tag_find' category.title tag.name %}">{{tag.name}}</a>
+            
+          </li>
+       {% endfor %}
+      </ul>
+      {% endspaceless %}
+    </div>
+   
+    {% else %}
+    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light" style="position: absolute;display: none;margin-top:40px">
+      {% spaceless %}
+      <ul class="menu_list shadow">
+          <li class="nav-link-custom">
+             No Tag Available          
+          </li>
+      </ul>
+      {% endspaceless %}
+    </div>
+    {% endif %}
+  </div>
+   {% endif %}
+  <div class="d-flex ms-auto px-2 me-2 align-items-center">
+  <div class="js-tabs-container me-4" style="display: flex; align-items: center; min-width:50px">
+    <div class="header__tab__search" style=" min-width:250px">
       {% render_search_form %}
     </div>
   </div>
-  <div class="menu__dropdown js-tabs-container" style="width: 45%">
+  <div class="menu__dropdown js-tabs-container" id="options-menu" >
     {% spaceless %}
-      <ul class="header__tabs" style="margin-right:10%">
-        <li><a
-          class="header__tabs__item js-tab"
-          href="{% url "spirit:search:date" %}"
+      <ul class="header__tabs">
+        <li class="menu__dropdown_button"><a
+          class="header__tabs__item js-tab text-white fw-bold dropdown_button"
+          href="{% url 'spirit:search:date' %}"
           data-related=".js-date-content"
           ><i class="fa fa-calendar"></i></a></li>
-        <li><a
-          class="header__tabs__item js-tab-notification{% if has_notifications %} is-highlighted{% endif %}"
-          href="{% url "spirit:topic:notification:index" %}"
+        <li class="menu__dropdown_button"><a
+          class="header__tabs__item text-white dropdown_button fw-bold js-tab-notification{% if has_notifications %} is-highlighted{% endif %}"
+          href="{% url 'spirit:topic:notification:index' %}"
           data-related=".js-notifications-content"
           data-content=".js-notifications-content-list"
           ><i class="fa fa-bell"></i></a></li>
-        <li><a
-          class="header__tabs__item js-tab"
-          href="{% url "spirit:user:menu" %}"
+        <li class="menu__dropdown_button"><a
+          class="dropdown_button header__tabs__item js-tab text-white fw-bold"
+          href="{% url 'spirit:user:menu' %}"
           data-related=".js-user-content"
           >Options <i class="fa fa-chevron-down"></i></a></li>
       </ul>
     {% endspaceless %}
 
-    <div class="header__tabs_content" style="margin-left: 70%;">
-      <div class="header__tabs_content__tab js-tab-content js-user-content" style="position: absolute; left:87%; background-color: gray; padding: 2px; display: none;">
-        <nav class="header__tab__nav">
+    <div class="header__tabs_content w-100 menu_list_wrapper">
+      <div class="header__tabs_content__tab border js-tab-content js-user-content mt-2 float-right " style="position:absolute; left:83%;display: none;">
+        <nav class="header__tab__nav  bg-light">
           {% spaceless %}
-          <ul class="menu_list">
+          <ul class="menu_list bg-light">
             <li><a
-              class="menu_list__link"
-              href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}"
+              class="menu_list__link nav-link-custom"
+              href="{% url 'spirit:user:detail' pk=user.pk slug=user.st.slug %}"
               >{% trans "Profile" %}</a></li>
             <li><a
-              class="menu_list__link"
-              href="{% url "spirit:topic:index-active" %}"
+              class="menu_list__link nav-link-custom"
+              href="{% url 'spirit:topic:index-active' %}"
               >{% trans "Targets" %}</a></li>
             <li><a
-              class="menu_list__link"
-              href="{% url "spirit:topic:unread:index" %}"
+              class="menu_list__link nav-link-custom"
+              href="{% url 'spirit:topic:unread:index' %}"
               >{% trans "Unread targets" %}</a></li>
             {% if user.st.is_administrator %}
               <li><a
-                class="menu_list__link"
-                href="{% url "spirit:admin:index" %}"
+                class="menu_list__link nav-link-custom"
+                href="{% url 'spirit:admin:index' %}"
                 >{% trans "Admin" %}</a></li>
             {% endif %}
           </ul>
           {% endspaceless %}
         </nav>
       </div>
-      <div class="header__tabs_content__tab js-tab-content js-notifications-content" style="position: absolute; left:80%; display: none;">
-        <div class="header__tab__bell js-notifications-content-list">
+      <div class="header__tabs_content__tab js-tab-content js-notifications-content mt-2" style="position: absolute; left:79%; display: none;">
+        <div class="header__tab__bell js-notifications-content-list border shadow p-2">
         </div>
       </div>
-      <div class="header__tabs_content__tab js-tab-content js-search-content" style="position: absolute; left:80%; display: none;">
+      
+      <div class="header__tabs_content__tab js-tab-content js-date-content mt-2" style="position: absolute;left:80%;display: none;">
         <div class="header__tab__search">
-          {% render_search_form %}
-        </div>
-      </div>
-      <div class="header__tabs_content__tab js-tab-content js-date-content" style="position: absolute; left:80%; display: none;">
-        <div class="header__tab__search">
-          <form action="{% url "spirit:search:date" %}" method="post">
+          <form action="{% url 'spirit:search:date' %}" method="post" class="d-flex flex-column p-2 shadow bg-light">
             {% csrf_token %}
-            <input type="date" name="start" style="background-color: white; border-color: gray; border-style:solid;"/>
-            <input type="date" name="end"  style="background-color: white; border-color: gray; border-style:solid;"/>
-            <input class="button" type="submit" name="post" value="{% trans "Filter" %}" />
+            <input type="date" name="start" class="form-control mb-2 " style="background-color: white;"/>
+            <input type="date" name="end"  class="form-control mb-2" style="background-color: white;"/>
+            <input class="btn bg-ofx-blue text-white py-1" type="submit" name="post" value="{% trans 'Filter' %}" />
           </form>
         </div>
       </div>
     </div>
   </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+    $('.menu__dropdown .dropdown_button').on('click',function() {
+       var currentMenuId =       $(this).parents('.menu__dropdown').attr('id');
+
+       $('.menu_list_wrapper').each(function() {
+        console.log("length",$(this).parents('.menu__dropdown').attr('id'),currentMenuId  )
+        if ($(this).parents('.menu__dropdown').attr('id') !== currentMenuId ) {
+          $(this).hide();
+        }
+        else{
+          $(this).show()
+        }
+      });
+        console.log("jjjjjjjj")
+      });
+
+     
+
+    });
+  </script>
 </div>
+
