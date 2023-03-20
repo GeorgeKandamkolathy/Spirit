@@ -177,7 +177,7 @@ def create(request):
     if is_post(request) and form.is_valid():
         tag = form.save()
 
-        return redirect(reverse('spirit:comment:create'))
+        return redirect(reverse('spirit:comment:index'))
 
 def find_tag(request, tag_name, category):
 
@@ -221,7 +221,9 @@ def tag_delete(request, tag_name):
 
     tag.delete()
 
-    return json_response("successs")
+    print("OKOKOKO")
+
+    return redirect("spirit:comment:index")
 
 def comment_report(tag_name, category):
     print(tag_name)

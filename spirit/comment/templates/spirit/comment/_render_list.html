@@ -130,7 +130,7 @@
           {% endif %}
 
           {% if c.user.pk != user.pk %}
-            <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}"
+            <li><a href="#reply" class="js-reply-button" data="@{{ c.user.email }}"
             >{% trans "reply" %}</a></li>
           {% endif %}
         {% endif %}

@@ -90,6 +90,7 @@ class InlineLexer(mistune.InlineLexer):
 
         # New mention
         try:
+            print(username)
             user = (
                 User.objects
                 .select_related('st')
