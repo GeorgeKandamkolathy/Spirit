@@ -33,6 +33,7 @@ class TopicNotification(models.Model):
     is_active = models.BooleanField(default=False)
 
     objects = TopicNotificationQuerySet.as_manager()
+    
 
     class Meta:
         unique_together = ('user', 'topic')

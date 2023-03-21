@@ -10,7 +10,7 @@
     <div
       class="profile__img__avatar no-pic"
       style="background-color:{% get_avatar_color p_user.pk %};"
-    >{{ p_user.st.nickname.0.upper }}</div>
+    >{{ p_user.st.user.first_name.0.upper }}</div>
   {% endif %}
   <div class="profile__img__username">{{ p_user.st.user.first_name }}  {{ p_user.st.user.last_name }}</div>
 </div>
@@ -40,14 +40,14 @@
   <div class="profile__profile_preferences">
     <a
       class="button"
-      href="{% url "spirit:user:update" %}"
+      href="{% url 'spirit:user:update' %}"
     ><i class="fa fa-cog"></i> {% trans "Preferences" %}</a>
   </div>
   {% else %}
   <div class="profile__private_message">
     <a
       class="button"
-      href="{% url "spirit:topic:private:publish" user_id=p_user.pk %}"
+      href="{% url 'spirit:topic:private:publish' user_id=p_user.pk %}"
     ><i class="fa fa-envelope"></i> {% trans "Private Message" %}</a>
   </div>
 {% endif %}
@@ -56,7 +56,7 @@
   <div class="profile__profile_preferences">
     <a
       class="button"
-      href="{% url "spirit:admin:user:edit" user_id=p_user.pk %}"
+      href="{% url 'spirit:admin:user:edit' user_id=p_user.pk %}"
     ><i class="fa fa-cog"></i> {% trans "Edit user" %}</a>
   </div>
 {% endif %}
@@ -65,15 +65,15 @@
   <ul class="nav__tabs">
     <li><a
       class="nav__tabs__link{% if active_tab == 0 %} is-selected{% endif %}"
-      href="{% url "spirit:user:detail" pk=p_user.pk slug=p_user.st.slug %}"
+      href="{% url 'spirit:user:detail' pk=p_user.pk slug=p_user.st.slug %}"
     >{% trans "Comments" %}</a></li>
     <li><a
       class="nav__tabs__link{% if active_tab == 1 %} is-selected{% endif %}"
-      href="{% url "spirit:user:topics" pk=p_user.pk slug=p_user.st.slug %}"
+      href="{% url 'spirit:user:topics' pk=p_user.pk slug=p_user.st.slug %}"
     >{% trans "Targets" %}</a></li>
     <li><a
       class="nav__tabs__link{% if active_tab == 2 %} is-selected{% endif %}"
-      href="{% url "spirit:user:likes" pk=p_user.pk slug=p_user.st.slug %}"
+      href="{% url 'spirit:user:likes' pk=p_user.pk slug=p_user.st.slug %}"
     >{% trans "Likes" %}</a>
     </li>
   </ul>

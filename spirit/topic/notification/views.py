@@ -27,13 +27,16 @@ from .forms import NotificationForm, NotificationCreationForm
 @require_POST
 @login_required
 def create(request, topic_id):
+    print("topic_id",topic_id)
     topic = get_object_or_404(
         Topic.objects.for_access(request.user),
         pk=topic_id)
+    print("topic",topic)
+
     form = NotificationCreationForm(
         user=request.user,
         topic=topic,
-        data=request.POST)
+        data=request.POST or None)
 
     if form.is_valid():
         form.save()
