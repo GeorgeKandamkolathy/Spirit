@@ -30,7 +30,6 @@
         {% if c.is_removed and user.st.is_moderator %}
           <a class="js-post" href="{% url "spirit:comment:undelete" c.pk %}"
           ><i class="fa fa-trash"></i> {% trans "undelete" %}</a>
-          <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
         {% endif %}
       </div>
     {% endspaceless %}

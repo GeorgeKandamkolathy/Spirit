@@ -6,9 +6,14 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from .models import Flag, CommentFlag
-
+REASON_CHOICES = (
+    (0, _("Spam")),
+    (1, _("Other")))
 
 class FlagForm(forms.ModelForm):
+
+
+    reason = forms.ChoiceField(choices=REASON_CHOICES, label='Please select a string', required=True)
 
     class Meta:
         model = Flag

@@ -184,7 +184,7 @@ def find_tag(request, tag_name, category):
     tag = get_object_or_404(CommentTag, name=tag_name)
 
     comments = (
-        Comment.objects.with_polls(user=request.user).filter(Q(tag=tag, topic__category__title=category) | Q(tag=tag, topic__category__parent__title=category)))
+        Comment.objects.with_polls(user=request.user).visible(request.user).filter(Q(tag=tag, topic__category__title=category) | Q(tag=tag, topic__category__parent__title=category)))
 
     #comment_report(tag_name, category)
     filename = "comment_report_" + tag_name + "_" + category + ".pdf"
@@ -192,7 +192,7 @@ def find_tag(request, tag_name, category):
 
     comments = paginate(
         comments,
-        per_page=10,
+        per_page=20,
         page_number=request.GET.get('page', 1))
 
     return render(

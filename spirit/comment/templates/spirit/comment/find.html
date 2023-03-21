@@ -32,8 +32,29 @@
     </div>
     -->
 
-    {% include "spirit/comment/_render_list.html" %}
+    {% if comments %}
+      {% include "spirit/comment/_render_list.html" %}
+    {% else %}
+      <p>{% trans "There are no search results." %}</p>
+    {% endif %}
 
+    <div class="pagination">
+      <span class="step-links">
+          {% if comments.has_previous %}
+              <a href="?page=1" id="first">&laquo; first</a>
+              <a href="?page={{ comments.previous_page_number }}" id="prev">previous</a>
+          {% endif %}
+
+          <span class="current">
+              Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
+          </span>
+
+          {% if comments.has_next %}
+              <a href="?page={{ comments.next_page_number }}" id="next">next</a>
+              <a href="?page={{ comments.paginator.num_pages }}" id="last">last &raquo;</a>
+          {% endif %}
+      </span>
+    </div>
   </div>
 {% endblock %}
 

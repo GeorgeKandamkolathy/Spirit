@@ -29,8 +29,8 @@ class CommentQuerySet(models.QuerySet):
     def public(self):
         return self.filter(topic__category__is_private=False)
 
-    def visible(self):
-        return self.unremoved().public()
+    def visible(self,user):
+        return self.unremoved().filter(topic__category__users__exact=user)
 
     def for_topic(self, topic):
         return self.filter(topic=topic)
