@@ -14,6 +14,7 @@ from . import views
 
 app_name = 'comment'
 urlpatterns = [
+    path('tag/delete/<str:tag_name>/', views.tag_delete, name='tag_delete'),
     re_path(r'^(?P<topic_id>[0-9]+)/publish/$', views.publish, name='publish'),
     re_path(r'^(?P<topic_id>[0-9]+)/publish/(?P<pk>[0-9]+)/quote/$',
         views.publish,
@@ -32,7 +33,6 @@ urlpatterns = [
     re_path(r'^tag/publish', views.create, name='publish_tag'),
     path('tag/index/', views.index, name='index'),
     path('tag/<str:category>/<str:tag_name>/', views.find_tag, name='tag_find'),
-    path('tag/delete/<str:tag_name>/', views.tag_delete, name='tag_delete'),
     path('tag/report/<str:tag_name>/', views.comment_report, name='tag_report'),
 
     re_path(r'^bookmark/', include(spirit.comment.bookmark.urls)),

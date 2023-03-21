@@ -6,6 +6,10 @@
 
 {% block content %}
 <div class="layout__article">
+  <div style="display: flex; align-items:center">
+    <i class="fa fa-chevron-left" style="margin-right: 0.5%;"></i>
+    <a href="/forum/comment/tag/index/"> Back </a>
+  </div>
   <h1 class="headline">{% trans "Publishing tag" %}</h1>
 
   <form action="{% url "spirit:comment:publish_tag" %}" method="post" class="js-reply">

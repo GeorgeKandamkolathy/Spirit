@@ -30,7 +30,6 @@
         {% if c.is_removed and user.st.is_moderator %}
           <a class="js-post" href="{% url "spirit:comment:undelete" c.pk %}"
           ><i class="fa fa-trash"></i> {% trans "undelete" %}</a>
-          <a href="#">{% trans "show" %} <i class="fa fa-chevron-down"></i></a>
         {% endif %}
       </div>
     {% endspaceless %}
@@ -130,7 +129,7 @@
           {% endif %}
 
           {% if c.user.pk != user.pk %}
-            <li><a href="#reply" class="js-reply-button" data="@{{ c.user.username }}"
+            <li><a href="#reply" class="js-reply-button" data="@{{ c.user.email }}"
             >{% trans "reply" %}</a></li>
           {% endif %}
         {% endif %}

@@ -29,7 +29,7 @@ from .forms import NotificationForm, NotificationCreationForm
 def create(request, topic_id):
     print("topic_id",topic_id)
     topic = get_object_or_404(
-        Topic.objects.for_access(request.user),
+        Topic.objects.visible(request.user),
         pk=topic_id)
     print("topic",topic)
 

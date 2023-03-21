@@ -7,7 +7,8 @@ from . import views
 
 app_name = 'search'
 urlpatterns = [
-    re_path(r'date/$', views.date_filter, name='date'),
+    re_path(r'date/form$', views.date_filter, name='date'),
+    re_path(r'date/$', views.date_paginate, name='date_page'),
     re_path(r'^$', views.SearchView(), name='search'),
 
 ]

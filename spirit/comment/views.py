@@ -177,22 +177,22 @@ def create(request):
     if is_post(request) and form.is_valid():
         tag = form.save()
 
-        return redirect(reverse('spirit:comment:create'))
+        return redirect(reverse('spirit:comment:index'))
 
 def find_tag(request, tag_name, category):
 
     tag = get_object_or_404(CommentTag, name=tag_name)
 
     comments = (
-        Comment.objects.with_polls(user=request.user).filter(Q(tag=tag, topic__category__title=category) | Q(tag=tag, topic__category__parent__title=category)))
+        Comment.objects.with_polls(user=request.user).visible(request.user).filter(Q(tag=tag, topic__category__title=category) | Q(tag=tag, topic__category__parent__title=category)))
 
-    comment_report(tag_name, category)
+    #comment_report(tag_name, category)
     filename = "comment_report_" + tag_name + "_" + category + ".pdf"
     report_file = '/media/reports/tags/' + filename
 
     comments = paginate(
         comments,
-        per_page=10,
+        per_page=20,
         page_number=request.GET.get('page', 1))
 
     return render(
@@ -221,7 +221,9 @@ def tag_delete(request, tag_name):
 
     tag.delete()
 
-    return json_response("successs")
+    print("OKOKOKO")
+
+    return redirect("spirit:comment:index")
 
 def comment_report(tag_name, category):
     print(tag_name)

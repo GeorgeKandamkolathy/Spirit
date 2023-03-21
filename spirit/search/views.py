@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.http import request
+from django.shortcuts import redirect
 from haystack.inputs import Raw
 from haystack.query import SearchQuerySet
 from haystack.views import SearchView as BaseSearchView
@@ -43,14 +44,15 @@ class SearchView(BaseSearchView):
         for result in self.results:
             print(result.user)
             print(str(self.request.user.id))
-        page = yt_paginate(
+        paginator = paginate(
             results,
             per_page=config.topics_per_page,
             page_number=self.request.GET.get('page', 1))
         page = [
             {'title': r.title, 'main_category_name':r.category.title, 'comment_count': r.comment_count, 'last_active': r.last_active,
              'pk': r.pk}
-            for r in page]
+            for r in paginator]
+        print(paginator)
         return paginator, page
     
     def extra_context(self):
@@ -74,15 +76,28 @@ def date_filter(request):
         else:
             end = datetime.now()
         comments = Comment.objects.with_polls(user=request.user).filter(custom_date__range=[start, end])
-        print(comments)
         comments = paginate(
             comments,
             per_page=config.comments_per_page,
             page_number=request.GET.get('page', 1))
 
+    return redirect('/forum/search/date/?min='+ start.strftime('%Y-%m-%d') +'&max=' + end.strftime('%Y-%m-%d'))
+
+def date_paginate(request):
+
+    start = request.GET.get('min')
+    end = request.GET.get('max')
+    start = datetime.strptime(start, '%Y-%m-%d')
+    end = datetime.strptime(end, '%Y-%m-%d')
+
+    comments = Comment.objects.with_polls(user=request.user).visible(request.user).filter(custom_date__range=[start, end])
+    comments = paginate(
+        comments,
+        per_page=config.comments_per_page,
+        page_number=request.GET.get('page', 1))
+
     return render(
         request=request,
         template_name='spirit/search/date.html',
         context={'comments': comments})
-
 
