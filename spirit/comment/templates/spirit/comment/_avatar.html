@@ -8,5 +8,5 @@
   <div
     class="comment__img__avatar no-pic"
     style="background-color:{% get_avatar_color u.pk %};"
-  >{{ u.st.nickname.0.upper }}</div>
+  >{{u.st.user.first_name.0.upper}}</div>
 {% endif %}

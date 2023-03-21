@@ -5,20 +5,22 @@
 {% block title %}{% trans "Search" %}{% endblock %}
 
 {% block content %}
-<div style="display: flex; align-items:center">
-  <i class="fa fa-chevron-left" style="margin-right: 3%;"></i>
-  <a href="/forum/"> Back </a>
-</div>
-  <div class="layout__article">
-      <h1 class="headline">{% trans "Results" %}</h1>
+<div class="layout__article mb-2">
+  
+  <a href="/forum/"><i class="fa fa-chevron-left" ></i> Back </a>
+  <div class="d-flex flex-column w-100 mt-0 py-0 border mb-5 ">
+  
+  <div class="d-flex bg-ofx-blue  ms-0  mb-4 align-items-center justify-content-center">
+     <h6 class=" ms-2 text-white text-center mt-1">{% trans "Search Results" %}</h6>
 
-      <form action="{% url "spirit:search:date" %}" method="post" style=" display: flex; margin-bottom: 2%;">
+
+      <form action="{% url 'spirit:search:date' %}" method="post" class="d-flex ms-auto align-items-center">
         {% csrf_token %}
-        <input type="date" name="start" style="background-color: white; border-color: gray; border-style:solid;"/>
-        <input type="date" name="end"  style="background-color: white; border-color: gray; border-style:solid;"/>
-        <input class="button" type="submit" name="post" value="{% trans "Filter" %}" style="margin-left: 2%;"/>
+        <input type="date" name="start" class="form-control me-2" />
+        <input type="date" name="end"  class="form-control me-2"/>
+        <input class="btn btn-secondary my-1 px-2 me-3 py-1 text-white" type="submit" value="{% trans 'Search' %}"  />
       </form>
-
+    </div>
 
       {% if comment.empty %}
         <p>{% trans "There are no search results." %}</p>

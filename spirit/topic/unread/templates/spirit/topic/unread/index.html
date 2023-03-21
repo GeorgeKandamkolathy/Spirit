@@ -5,9 +5,13 @@
 {% block title %}{% trans "Unread topics replies" %}{% endblock %}
 
 {% block content %}
-  <div class="layout__article">
-    <h1 class="headline">{% trans "Unread topics replies" %}</h1>
-
+  <div class="layout__article ">
+    <a href="/forum/"><i class="fa fa-chevron-left" ></i> Back </a>
+    <div class="d-flex flex-column w-100 mt-0 border">
+     
+    <h6 class="headline bg-ofx-blue text-white py-2 px-2 ms-0">{% trans "Unread topics replies" %}</h6>
+  <div class="w-100">
+  
     {% include "spirit/topic/_render_list.html" with topics=page %}
 
     {% if page.has_next %}
@@ -21,4 +25,5 @@
       {% endspaceless %}
     {% endif %}
   </div>
+</div>
 {% endblock %}

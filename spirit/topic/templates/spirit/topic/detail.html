@@ -5,21 +5,21 @@
 {% block title %}{{ topic.title }}{% endblock %}
 
 {% block content %}
-  <div class="layout__article px-5 mx-5 border border-2">
+  <div class="layout__article mb-5 border border-2">
     {% spaceless %}
-      <ul class="breadcrumb_nav">
-        <li><a href="{% url "spirit:index" %}"
-        >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
+      <ul class="breadcrumb_nav bg-ofx-blue  py-2 px-2 mx-0 w-100">
+        <li ><a href="{% url 'spirit:index' %}" class="text-white"
+        >{% trans "Main" %}<i class="fa fa-chevron-right"></i></a></li>
         {% if topic.category.parent_id %}
-          <li><a href="{{ topic.category.parent.get_absolute_url }}"
-          >{{ topic.category.parent.title }}</a
-          ><i class="fa fa-chevron-right"></i></li>
+          <li><a href="{{ topic.category.parent.get_absolute_url }}" class="text-white"
+          >{{ topic.category.parent.title }} <i class="fa fa-chevron-right"></i></a
+          ></li>
         {% endif %}
-        <li><a href="{{ topic.category.get_absolute_url }}"
-        >{{ topic.category.title }}</a></li>
+        <li><a href="{{ topic.category.get_absolute_url }}" class="text-white"
+        >{{ topic.category.title }} <i class="fa fa-chevron-right"></i></a></li>
       </ul>
     {% endspaceless %}
-
+<div class="px-2">
     <h1 class="headline">
       {% if topic.is_removed %}
         <i class="fa fa-trash-o"></i>
@@ -35,34 +35,34 @@
 
     </h1>
     {% if user.st.is_moderator %}
-    <div class="layout__menu">
-      <div class="menu__dropdown js-tabs-container">
-        <div class="menu__dropdown_button">
+    <div class="layout__menu"> 
+      <div class="menu__dropdown js-tabs-container ms-2" style="height:30px">
+        <div class="menu__dropdown_button" >
           <a class="dropdown_button js-tab" href="#" data-related=".js-mod-content"
           >{% trans "Moderate" %} <i class="fa fa-chevron-down"></i></a>
         </div>
-        <div class="menu_list_wrapper js-tab-content js-mod-content" style="display: none;">
+        <div class="menu_list_wrapper js-tab-content js-mod-content border position-absolute mt-4 shadow bg-light" style="display: none;">
           {% spaceless %}
           <ul class="menu_list">
             {% if topic.is_removed %}
-              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:undelete" topic.pk %}"
+              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:undelete" topic.pk %}"
               ><i class="fa fa-trash-o"></i> {% trans "Undelete Target" %}</a></li>
             {% else %}
-              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:delete" topic.pk %}"
+              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:delete" topic.pk %}"
               ><i class="fa fa-trash-o"></i> {% trans "Delete Target" %}</a></li>
             {% endif %}
             {% if topic.is_closed %}
-              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:unlock" topic.pk %}"
+              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:unlock" topic.pk %}"
               ><i class="fa fa-unlock"></i> {% trans "Open Target" %}</a></li>
             {% else %}
-              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:lock" topic.pk %}"
+              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:lock" topic.pk %}"
               ><i class="fa fa-lock"></i> {% trans "Close Target" %}</a></li>
             {% endif %}
             {% if topic.is_pinned %}
-              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:unpin" topic.pk %}"
+              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:unpin" topic.pk %}"
               ><i class="fa fa-thumb-tack"></i> {% trans "Unpin Target" %}</a></li>
             {% else %}
-              <li><a class="menu_list__link js-post" href="{% url "spirit:topic:moderate:pin" topic.pk %}"
+              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:pin" topic.pk %}"
               ><i class="fa fa-thumb-tack"></i> {% trans "Pin Target" %}</a></li>
             {% endif %}
           </ul>
@@ -74,11 +74,11 @@
 
     {% include "spirit/comment/_render_list.html" %}
 
-    <div class="comments__footer_menu">
+    <div class="comments__footer_menu ms-2">
       <div class="comments__footer_menu__paginator">
         {% render_paginator page=comments %}
       </div>
-      <div class="comments__footer_menu__notify">
+      <div class="comments__footer_menu__notify me-2">
         {% if user.is_authenticated %}
           {% render_notification_form user=user topic=topic %}
         {% elif not topic.is_closed %}
@@ -123,7 +123,7 @@
           </div>
         </div>
       {% endif %}
-
+      </div>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
 
