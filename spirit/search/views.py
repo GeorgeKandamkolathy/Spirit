@@ -90,9 +90,9 @@ def date_paginate(request):
     start = datetime.strptime(start, '%Y-%m-%d')
     end = datetime.strptime(end, '%Y-%m-%d')
 
-    comments = Comment.objects.with_polls(user=request.user).visible(request.user).filter(custom_date__range=[start, end])
+    commentsObjs = Comment.objects.with_polls(user=request.user).visible(request.user).filter(custom_date__range=[start, end])
     comments = paginate(
-        comments,
+        commentsObjs,
         per_page=config.comments_per_page,
         page_number=request.GET.get('page', 1))
 

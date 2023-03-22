@@ -35,6 +35,9 @@
           </div>
         </div>
       {% endfor %}
+      {% if not tags %}
+        There are no tags.
+      {% endif %}
     </div>
   </div>
 {% endblock %}

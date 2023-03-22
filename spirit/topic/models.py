@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
@@ -32,6 +33,7 @@ class Topic(models.Model):
         verbose_name=_("category"),
         on_delete=models.CASCADE)
 
+    target_id = models.UUIDField(default=uuid.uuid4, blank=True, null=True)
     title = models.CharField(_("title"), max_length=255)
     slug = AutoSlugField(populate_from="title", db_index=False, blank=True)
     date = models.DateTimeField(_("date"), default=timezone.now)
