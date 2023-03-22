@@ -22,12 +22,11 @@
       </form>
     </div>
 
-      {% if comment.empty %}
-        <p>{% trans "There are no search results." %}</p>
-      {% render_paginator page %}
-      {% else %}
-        {% include "spirit/comment/_render_list.html" %}
-      {% endif %}
+    {% if comments %}
+      {% include "spirit/comment/_render_list.html" %}
+    {% else %}
+      <p>{% trans "There are no search results." %}</p>
+    {% endif %}
 
 
     <div class="pagination">
