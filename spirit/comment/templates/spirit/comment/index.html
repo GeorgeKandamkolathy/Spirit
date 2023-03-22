@@ -5,15 +5,13 @@
 {% block title %}{% trans "Tag List" %}{% endblock %}
 
 {% block content %}
-
-  <div class="layout__admin">
-    <div style="display: flex; align-items:center">
-      <i class="fa fa-chevron-left" style="margin-right: 0.5%;"></i>
-      <a href="/forum/"> Back </a>
+<a href="/forum/"> <i class="fa fa-chevron-left" style="margin-right: 0.5%;"></i> Back </a>
+  <div class="layout__admin border">
+    <div  class="bg-ofx-blue text-white p-2 ">
+      <h6 class="m-0 p-0">{% trans "Tag List" %}</h6>
+      
     </div>
-    <h1 class="headline">{% trans "Tag List" %}</h1>
-
-    <div class="admin__category_menu">
+    <div class="admin__category_menu mt-2 px-2">
       <div class="admin__category_menu__new_category">
         <a
           class="button"

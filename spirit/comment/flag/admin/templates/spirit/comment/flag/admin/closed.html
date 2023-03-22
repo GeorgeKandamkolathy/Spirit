@@ -5,10 +5,13 @@
 {% block title %}{% trans "Closed flags" %}{% endblock %}
 
 {% block content %}
-<div class="layout__admin">
-    {% include "spirit/admin/_nav_menu.html" with active="flags" %}
+<div class="layout__admin border">
+    <div class="mt-0">
+   
 
-    <h1 class="headline">{% trans "Closed flags" %}</h1>
+    <h6 class="headline p-2 bg-ofx-blue text-white m-0 ">{% trans "Closed flags" %}</h1>
+        {% include "spirit/admin/_nav_menu.html" with active="flags" %}
+    </div>
 
     {% include "spirit/comment/flag/admin/_list.html" with active_tab="closed" %}
 </div>

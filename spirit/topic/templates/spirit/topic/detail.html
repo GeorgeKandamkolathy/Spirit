@@ -7,7 +7,7 @@
 {% block content %}
   <div class="layout__article mb-5 border border-2">
     {% spaceless %}
-      <ul class="breadcrumb_nav bg-ofx-blue  py-2 px-2 mx-0 w-100">
+      <ul class="breadcrumb_nav bg-ofx-blue  p-2 mx-0 w-100">
         <li ><a href="{% url 'spirit:index' %}" class="text-white"
         >{% trans "Main" %}<i class="fa fa-chevron-right"></i></a></li>
         {% if topic.category.parent_id %}
@@ -32,7 +32,6 @@
       {% endif %}
 
       {{ topic.title }}
-
     </h1>
     {% if user.st.is_moderator %}
     <div class="layout__menu"> 
@@ -44,13 +43,7 @@
         <div class="menu_list_wrapper js-tab-content js-mod-content border position-absolute mt-4 shadow bg-light" style="display: none;">
           {% spaceless %}
           <ul class="menu_list">
-            {% if topic.is_removed %}
-              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:undelete" topic.pk %}"
-              ><i class="fa fa-trash-o"></i> {% trans "Undelete Target" %}</a></li>
-            {% else %}
-              <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:delete" topic.pk %}"
-              ><i class="fa fa-trash-o"></i> {% trans "Delete Target" %}</a></li>
-            {% endif %}
+       
             {% if topic.is_closed %}
               <li><a class="menu_list__link js-post nav-link-custom" href="{% url "spirit:topic:moderate:unlock" topic.pk %}"
               ><i class="fa fa-unlock"></i> {% trans "Open Target" %}</a></li>

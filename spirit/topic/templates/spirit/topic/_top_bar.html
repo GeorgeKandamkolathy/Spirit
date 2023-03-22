@@ -48,6 +48,7 @@
             >{% trans "All Projects" %}</a></li>
           {% endif %}
         </ul>
+        
       {% endspaceless %}
     </div>
   </div>
@@ -61,7 +62,7 @@
       
     </div>
     {% if tags and  tags|length > 0 %}
-    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light mt-4" style="position: absolute;display: none;">
+    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light mt-4" style="position: absolute;display: none;margin-top:45px">
       {% spaceless %}
       <ul class="menu_list shadow">
   
@@ -76,7 +77,7 @@
     </div>
    
     {% else %}
-    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light" style="position: absolute;display: none;margin-top:40px">
+    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light" style="position: absolute;display: none;margin-top:45px">
       {% spaceless %}
       <ul class="menu_list shadow">
           <li class="nav-link-custom">
@@ -89,7 +90,7 @@
   </div>
    {% endif %}
   <div class="d-flex ms-auto px-2 me-2 align-items-center">
-  <div class="js-tabs-container me-4" style="display: flex; align-items: center; min-width:50px">
+  <div class="js-tabs-container me-4" style="display: flex; align-items: center;">
     <div class="header__tab__search" style=" min-width:250px">
       {% render_search_form %}
     </div>
@@ -116,8 +117,8 @@
       </ul>
     {% endspaceless %}
 
-    <div class="header__tabs_content w-100 menu_list_wrapper ms-5">
-      <div class="header__tabs_content__tab border js-tab-content js-user-content mt-2" style="position:absolute;left:80%;display: none;">
+    <div class="header__tabs_content w-100 menu_list_wrapper ">
+      <div class="header__tabs_content__tab border js-tab-content js-user-content mt-2 ms-5" style="position:absolute;display: none;">
         <nav class="header__tab__nav  bg-light">
           {% spaceless %}
           <ul class="menu_list bg-light">
@@ -143,17 +144,17 @@
           {% endspaceless %}
         </nav>
       </div>
-      <div class="header__tabs_content__tab js-tab-content js-notifications-content mt-2" style="position: absolute; left:79%; display: none;">
-        <div class="header__tab__bell js-notifications-content-list border shadow p-2">
+      <div class="header__tabs_content__tab js-tab-content js-notifications-content mt-2 me-5" style="position: absolute; display: none;">
+        <div class="header__tab__bell js-notifications-content-list border shadow p-2 bg-light">
         </div>
       </div>
       
-      <div class="header__tabs_content__tab js-tab-content js-date-content mt-2" style="position: absolute;left:80%;display: none;">
+      <div class="header__tabs_content__tab js-tab-content js-date-content mt-2 " style="position: absolute;display: none;">
         <div class="header__tab__search">
           <form action="{% url 'spirit:search:date' %}" method="post" class="d-flex flex-column p-2 shadow bg-light">
             {% csrf_token %}
-            <input type="date" name="start" class="form-control mb-2 " style="background-color: white;"/>
-            <input type="date" name="end"  class="form-control mb-2" style="background-color: white;"/>
+            <input type="date" name="start" class="form-control mb-2 " />
+            <input type="date" name="end"  class="form-control mb-2"/>
             <input class="btn bg-ofx-blue text-white py-1" type="submit" name="post" value="{% trans 'Filter' %}" />
           </form>
         </div>
@@ -175,7 +176,7 @@
           $(this).show()
         }
       });
-        console.log("jjjjjjjj")
+        
       });
 
      
