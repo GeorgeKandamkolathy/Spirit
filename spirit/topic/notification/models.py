@@ -4,10 +4,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db import IntegrityError, transaction
+from django.contrib.auth import get_user_model
 
 from .managers import TopicNotificationQuerySet
 from spirit.core.conf import settings
 
+User = get_user_model()
 
 class TopicNotification(models.Model):
     UNDEFINED, MENTION, COMMENT = range(3)
@@ -88,7 +90,7 @@ class TopicNotification(models.Model):
          .update(
             comment=comment,
             is_read=False,
-            action=cls.COMMENT,
+            action=2,
             date=timezone.now()))
 
     @classmethod
@@ -96,28 +98,32 @@ class TopicNotification(models.Model):
         if not mentions:
             return
 
+
         # TODO: refactor
-        for user in mentions.values():
+        for email in mentions.values():
+            user = User.objects.get(email=email)
             try:
                 with transaction.atomic():
                     cls.objects.create(
                         user=user,
                         topic=comment.topic,
                         comment=comment,
-                        action=cls.MENTION,
+                        action=1,
                         is_active=True)
             except IntegrityError:
                 pass
 
+
+        users = User.objects.filter(email__in=mentions.values())
         (cls.objects
          .filter(
-            user__in=tuple(mentions.values()),
+            user__in=users,
             topic=comment.topic,
             is_read=True)
          .update(
             comment=comment,
             is_read=False,
-            action=cls.MENTION,
+            action=1,
             date=timezone.now()))
 
     @classmethod
@@ -126,7 +132,7 @@ class TopicNotification(models.Model):
             cls(user=user,
                 topic=comment.topic,
                 comment=comment,
-                action=cls.COMMENT,
+                action=2,
                 is_active=True)
             for user in users])
 
@@ -154,4 +160,4 @@ class TopicNotification(models.Model):
             return
         (cls.objects
          .filter(comment=comment, topic=topic)
-         .update(comment=next_comment, action=cls.COMMENT))
+         .update(comment=next_comment, action=2))

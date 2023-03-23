@@ -11,7 +11,7 @@ def comment_posted(comment, mentions):
     TopicNotification.create_maybe(
         user=comment.user,
         comment=comment,
-        action=TopicNotification.UNDEFINED)
+        action=TopicNotification.COMMENT)
     TopicNotification.notify_new_comment(comment=comment)
     TopicNotification.notify_new_mentions(comment=comment, mentions=mentions)
     TopicUnread.unread_new_comment(comment=comment)
