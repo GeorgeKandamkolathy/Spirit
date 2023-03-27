@@ -3,7 +3,10 @@
 {% include "spirit/comment/flag/admin/_tabs.html" with active_tab=active_tab %}
 
 <div class="admin__items_list">
-  
+
+  {% if not flags %}
+    There are no flags 
+  {% endif %}
   {% for f in flags %}
     <div class="admin__items_list__item js-clickable-area">
       <div class="admin__items_list__item__title">

@@ -52,6 +52,7 @@ def publish(request, topic_id, pk=None):
             return safe_redirect(request, 'next', default_url, method='POST')
 
         comment = form.save()
+        print(form.mentions)
         comment_posted(comment=comment, mentions=form.mentions)
         return safe_redirect(request, 'next', comment.get_absolute_url(), method='POST')
 
