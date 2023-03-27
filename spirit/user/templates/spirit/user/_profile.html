@@ -1,5 +1,7 @@
 {% load spirit_tags i18n %}
-
+<a href="/forum/">  <i class="fa fa-chevron-left"></i>
+  Back </a>
+<div class="border">
 <div class="profile__img">
   {% if p_user.st.avatar %}
     <img
@@ -17,7 +19,7 @@
 
 <div class="profile__info">
   {% spaceless %}
-    <ul>
+    <ul class="" style="background-color:#ddeeee">
       <li>
         <div class="profile__info__title">{% trans "Joined at" %}</div>
         <div class="profile__info__date">{{ p_user.date_joined|shortnaturaltime }}</div>
@@ -52,17 +54,17 @@
 {% endif %}
 
 {% spaceless %}
-  <ul class="nav__tabs">
+  <ul class="nav__tabs bg-ofx-blue text-white mb-4">
     <li><a
-      class="nav__tabs__link{% if active_tab == 0 %} is-selected{% endif %}"
+      class="text-white nav__tabs__link{% if active_tab == 0 %} is-selected{% endif %}"
       href="{% url 'spirit:user:detail' pk=p_user.pk slug=p_user.st.slug %}"
     >{% trans "Comments" %}</a></li>
     <li><a
-      class="nav__tabs__link{% if active_tab == 1 %} is-selected{% endif %}"
+      class="text-white nav__tabs__link{% if active_tab == 1 %} is-selected{% endif %}"
       href="{% url 'spirit:user:topics' pk=p_user.pk slug=p_user.st.slug %}"
     >{% trans "Targets" %}</a></li>
     <li><a
-      class="nav__tabs__link{% if active_tab == 2 %} is-selected{% endif %}"
+      class="text-white nav__tabs__link{% if active_tab == 2 %} is-selected{% endif %}"
       href="{% url 'spirit:user:likes' pk=p_user.pk slug=p_user.st.slug %}"
     >{% trans "Likes" %}</a>
     </li>

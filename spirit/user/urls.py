@@ -23,7 +23,7 @@ urlpatterns = [
     re_path(r'^topics/(?P<pk>[0-9]+)/$', views.topics, kwargs={'slug': ""}, name='topics'),
     re_path(r'^topics/(?P<pk>[0-9]+)/(?P<slug>[\w-]+)/$', views.topics, name='topics'),
 
-    re_path(r'^likes/(?P<pk>[0-9]+)/$', views.likes, kwargs={'slug': ""}, name='likes'),
+    re_path(r'^likes/(?P<pk>[0-9]+)/$', views.likes, kwargs={'slug': "",'pk':""}, name='likes'),
     re_path(r'^likes/(?P<pk>[0-9]+)/(?P<slug>[\w-]+)/$', views.likes, name='likes'),
 
     re_path(r'^menu/$', views.menu, name='menu'),

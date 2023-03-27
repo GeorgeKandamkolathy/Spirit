@@ -5,10 +5,12 @@
 {% block title %}{% trans "Publish a private topic" %}{% endblock %}
 
 {% block content %}
-  <div class="layout__article">
-    <h1 class="headline">{% trans "Publish private topic" %}</h1>
+<a href="/forum/">  <i class="fa fa-chevron-left"></i>
+  Back </a>
+  <div class="layout__article border">
+    <h6 class="headline bg-ofx-blue p-2 text-white">{% trans "Publish private topic" %}</h6>
 
-    <form action="." method="post" class="js-reply">
+    <form action="." method="post" class="js-reply mx-4">
       {% csrf_token %}
       {% include "spirit/_form.html" with form=tform %}
       {% include "spirit/_form.html" with form=tpform %}
@@ -21,9 +23,9 @@
       <div class="comment__reply__actions">
         {% include "spirit/comment/_editor.html" %}
         <input
-          class="button comment__reply__actions__publish"
+          class="button comment__reply__actions__publish mb-4"
           type="submit"
-          value="{% trans "Publish" %}" />
+          value="{% trans 'Publish' %}" />
       </div>
     </form>
   </div>

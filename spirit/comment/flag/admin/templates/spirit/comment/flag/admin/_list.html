@@ -3,6 +3,7 @@
 {% include "spirit/comment/flag/admin/_tabs.html" with active_tab=active_tab %}
 
 <div class="admin__items_list">
+  
   {% for f in flags %}
     <div class="admin__items_list__item js-clickable-area">
       <div class="admin__items_list__item__title">
@@ -16,7 +17,10 @@
         ><i class="fa fa-cog"></i> {% trans "moderate" %}</a>
       </div>
     </div>
-  {% endfor %}
+   {% empty %}
+  <p class="mt-4">{% trans "There are no Flags here, yet" %}</p>
+{% endfor %}
+
 </div>
 
 {% render_paginator flags %}

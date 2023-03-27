@@ -5,25 +5,26 @@
 {% block title %}{% trans "Publish tag" %}{% endblock %}
 
 {% block content %}
-<div class="layout__article">
-  <div style="display: flex; align-items:center">
-    <i class="fa fa-chevron-left" style="margin-right: 0.5%;"></i>
-    <a href="/forum/comment/tag/index/"> Back </a>
-  </div>
-  <h1 class="headline">{% trans "Publishing tag" %}</h1>
+<div style="display: flex; align-items:center">
+  <a href="/forum/comment/tag/index/">  <i class="fa fa-chevron-left"></i>
+    Back </a>
+</div>
+<div class="layout__article border">
+ 
+  <h6 class="headline bg-ofx-blue p-2 text-white">{% trans "Publishing tag" %}</h6>
 
-  <form action="{% url "spirit:comment:publish_tag" %}" method="post" class="js-reply">
+  <form action="{% url 'spirit:comment:publish_tag' %}" method="post" class="js-reply p-3">
     {% csrf_token %}
     <div class="topic_publish_comment">
       {% include "spirit/_form.html" with form=form %}
       {% include "spirit/comment/_editor_preview.html" %}
     </div>
-    <div class="comment__reply__actions">
+    <div class="comment__reply__actions mt-4">
       {% include "spirit/comment/_editor.html" %}
       <input
         class="button comment__reply__actions__publish"
         type="submit"
-        value="{% trans "Publish" %}" />
+        value="{% trans 'Publish' %}" />
     </div>
   </form>
 </div>

@@ -6,8 +6,13 @@
 
 {% block content %}
 <div class="layout__article mb-5 border">
-  <div class="d-flex flex-column w-100 mt-0 py-0 mb-5 ">  
-    {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories tags=tags %}
+  {% include "spirit/topic/_top_bar.html" with category=category categories=subcategories %}
+
+  <div style="display:flex; width:100%">
+    {% include "spirit/topic/_render_list.html" with show_subcategory=True %}
   </div>
+
+
+  {% render_paginator topics %}
 </div>
 {% endblock %}

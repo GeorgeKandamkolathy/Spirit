@@ -22,30 +22,30 @@
       </form>
     </div>
 
-      {% if comment.empty %}
-        <p>{% trans "There are no search results." %}</p>
-      {% render_paginator page %}
-      {% else %}
-        {% include "spirit/comment/_render_list.html" %}
-      {% endif %}
-
-
-    <div class="pagination">
-      <span class="step-links">
-          {% if comments.has_previous %}
-              <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page=1" id="first">&laquo; first</a>
-              <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page={{ comments.previous_page_number }}" id="prev">previous</a>
-          {% endif %}
-
-          <span class="current">
-              Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
-          </span>
-
-          {% if comments.has_next %}
-              <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page={{ comments.next_page_number }}" id="next">next</a>
-              <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page={{ comments.paginator.num_pages }}" id="last">last &raquo;</a>
-          {% endif %}
-      </span>
+    {% if comments %}
+      {% include "spirit/comment/_render_list.html" %}
+      <div class="pagination">
+        <span class="step-links">
+            {% if comments.has_previous %}
+                <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page=1" id="first">&laquo; first</a>
+                <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page={{ comments.previous_page_number }}" id="prev">previous</a>
+            {% endif %}
+  
+            <span class="current">
+                Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
+            </span>
+  
+            {% if comments.has_next %}
+                <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page={{ comments.next_page_number }}" id="next">next</a>
+                <a href="?min={{ request.GET.min }}&max={{ request.GET.max }}&page={{ comments.paginator.num_pages }}" id="last">last &raquo;</a>
+            {% endif %}
+        </span>
+      </div>
     </div>
-  </div>
+    {% else %}
+      <p>{% trans "There are no search results." %}</p>
+    {% endif %}
+
+
+   
 {% endblock %}

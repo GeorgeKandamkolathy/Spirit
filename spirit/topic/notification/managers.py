@@ -24,7 +24,7 @@ class TopicNotificationQuerySet(models.QuerySet):
 
     def for_access(self, user):
         return (
-            self.unremoved())  # Undefined action
+            self.unremoved().filter(topic__category__users__exact = user).exclude(comment__user = user)) 
 
     def read(self, user):
         # returns updated rows count (int)

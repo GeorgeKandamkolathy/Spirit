@@ -166,7 +166,7 @@ def likes(request, pk, slug):
     user_comments = (
         Comment.objects
         .filter(comment_likes__user_id=pk)
-        .visible()
+        .visible(request.user)
         .with_polls(user=request.user)
         .select_related('topic')
         .order_by('-comment_likes__date', '-pk'))

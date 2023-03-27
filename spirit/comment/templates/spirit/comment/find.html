@@ -5,21 +5,22 @@
 {% block title %}{{ tag.name }}{% endblock %}
 
 {% block content %}
-  <div class="layout__article">
-    {% spaceless %}
-      <ul class="breadcrumb_nav">
-        <li><a href="{% url "spirit:index" %}"
-        >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
-        <li>
-        {{ tag.name }}</li>
-      </ul>
-    {% endspaceless %}
+{% spaceless %}
+<ul class="breadcrumb_nav mb-0">
+  <li><a href="{% url 'spirit:index' %}"
+  >{% trans "Main" %}</a><i class="fa fa-chevron-right"></i></li>
+  <li>
+  {{ tag.name }}</li>
+</ul>
+{% endspaceless %}
+  <div class="layout__article border">
+  
 
-    <h1 class="headline">
+    <h5 class="headline bg-ofx-blue text-white p-2">
 
       {{ tag.name }}
 
-    </h1>
+    </h5>
     <!--
     <div class="admin__category_menu">
       <div class="admin__category_menu__new_category">
@@ -34,10 +35,7 @@
 
     {% if comments %}
       {% include "spirit/comment/_render_list.html" %}
-    {% else %}
-      <p>{% trans "There are no search results." %}</p>
-    {% endif %}
-
+      
     <div class="pagination">
       <span class="step-links">
           {% if comments.has_previous %}
@@ -55,6 +53,10 @@
           {% endif %}
       </span>
     </div>
+    {% else %}
+      <p>{% trans "There are no comments under this tag." %}</p>
+    {% endif %}
+
   </div>
 {% endblock %}
 
