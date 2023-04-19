@@ -5,15 +5,15 @@
 {% block title %}{% trans "Edit comment" %}{% endblock %}
 
 {% block content %}
-<div style="display: flex; align-items:center">
-  <i class="fa fa-chevron-left" style="margin-right: 3%;"></i>
-  <a href="/forum/"> Back </a>
-</div>
-<div class="layout__article">
-  <h1 class="headline">{% trans "Edit comment" %}</h1>
 
-  <form action="." method="post" class="js-reply">
+  <a href="/forum/"> <i class="fa fa-chevron-left me-1"></i>Back </a>
+
+<div class="layout__article border">
+  <h6 class="headline bg-ofx-blue p-2 text-white">{% trans "Edit comment" %}</h6>
+
+  <form action="." method="post" class="js-reply mx-4">
     {% csrf_token %}
+    <div>Edit Comment</div>
     <div class="topic_publish_comment">
       {% include "spirit/_form.html" %}
       {% include "spirit/comment/_editor_preview.html" %}
@@ -21,9 +21,9 @@
     <div class="comment__reply__actions">
       {% include "spirit/comment/_editor.html" %}
       <input
-        class="button comment__reply__actions__publish"
+        class="button comment__reply__actions__publish mb-4"
         type="submit"
-        value="{% trans "Publish" %}" />
+        value="{% trans 'Publish' %}" />
     </div>
   </form>
 </div>

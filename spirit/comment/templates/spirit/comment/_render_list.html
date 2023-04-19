@@ -143,12 +143,12 @@
             type="text"
             value="{% get_share_url url=comment_url %}" />
           {% spaceless %}
-            <ul class="comment__footer__share__menu">
-              <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}" target="_blank"
+            <ul class="comment__footer__share__menu bg-light ">
+              <li><a href="{% get_twitter_share_url url=comment_url title=topic.title %}"  class="nav-link-custom" target="_blank"
               ><i class="fa fa-twitter"></i> Twitter</a></li>
-              <li><a href="{% get_linkedin_share_url url=comment_url title=topic.title %}" target="_blank"
+              <li><a href="{% get_linkedin_share_url url=comment_url title=topic.title %}" class="nav-link-custom" target="_blank"
               ><i class="fa fa-facebook"></i> Facebook</a></li>
-              <li><a href="{% get_email_share_url url=comment_url title=topic.title %}"
+              <li><a href="{% get_email_share_url url=comment_url title=topic.title %}" class="nav-link-custom" 
               ><i class="fa fa-envelope"></i> Email</a></li>
             </ul>
           {% endspaceless %}

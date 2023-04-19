@@ -5,37 +5,30 @@
   *{
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
-  .nav-link-custom:hover {
-    background-color: #ddeeee !important; /* change to desired color */
-  }
-  .nav-link-custom{
-    color:#232D67 !important;
-    background-color:white !important;
-  }
-  
+
 </style>
-<div class="layout__menu bg-ofx-blue-light align-items-center mb-0" >
+<div class="layout__menu bg-ofx-blue align-items-center mb-0" >
   
-  <div class="menu__dropdown js-tabs-container me-5" id="project-menu" >
-    <div class="menu__dropdown_button ms-2" style="" >
+  <div class="menu__dropdown js-tabs-container me-5 " id="project-menu" >
+    <div class="menu__dropdown_button ms-2">
       {% if category %}
         <a 
-          class="dropdown_button js-tab text-white fw-bold"
+          class="dropdown_button header__tabs__item js-tab text-white fw-bold"
           href="#"
-          data-related=".js-categories-content"
+          data-related=".js-categories-content" 
         >{{ category.title }} <i class="fa fa-chevron-down"></i></a>
       {% else %}
         <a 
-          class="dropdown_button js-tab text-white fw-bold"
+          class="dropdown_button header__tabs__item js-tab text-white fw-bold"
           href="#"
-          data-related=".js-categories-content"
+          data-related=".js-categories-content" 
         >{% trans "All Projects" %} <i class="fa fa-chevron-down"></i></a>
       {% endif %}
     </div>
    
-      <div class="menu_list_wrapper js-tab-content js-categories-content bg-light mt-4" style="position: absolute;display: none;">
+      <div class="menu_list_wrapper  js-tab-content js-categories-content bg-light" style="position: absolute;display: none;margin-top:40px">
       {% spaceless %}
-        <ul class="menu_list shadow " >
+        <ul class="menu_list shadow  " >
           {% for c in categories %}
             <li><a class="menu_list__link  nav-link-custom " href="{{ c.get_absolute_url }}" style="" 
             >{{ c.title }}</a></li>
@@ -48,12 +41,13 @@
             >{% trans "All Projects" %}</a></li>
           {% endif %}
         </ul>
+        
       {% endspaceless %}
     </div>
   </div>
   {% if category  %}
 
-  <div class="menu__dropdown js-tabs-container ms-3" id="tags-menu" >
+  <div class="menu__dropdown header__tabs js-tabs-container ms-3" id="tags-menu" >
     <div class="menu__dropdown_button ms-2" style="">
       <a class="dropdown_button js-tab text-white fw-bold" data-related=".js-tags-content" href="#"> {% trans "Tags List" %} 
         <i class="fa fa-chevron-down"></i>  
@@ -61,7 +55,7 @@
       
     </div>
     {% if tags and  tags|length > 0 %}
-    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light mt-4" style="position: absolute;display: none;">
+    <div class="menu_list_wrapper header__tabs_content js-tab-content js-tags-content bg-light" style="position: absolute;display: none;margin-top:40px">
       {% spaceless %}
       <ul class="menu_list shadow">
   
@@ -76,7 +70,7 @@
     </div>
    
     {% else %}
-    <div class="menu_list_wrapper js-tab-content js-tags-content bg-light" style="position: absolute;display: none;margin-top:40px">
+    <div class="menu_list_wrapper header__tabs_content dropdown-content js-tab-content js-tags-content bg-light" style="position: absolute;display: none;margin-top:40px">
       {% spaceless %}
       <ul class="menu_list shadow">
           <li class="nav-link-custom">
@@ -89,12 +83,12 @@
   </div>
    {% endif %}
   <div class="d-flex ms-auto px-2 me-2 align-items-center">
-  <div class="js-tabs-container me-4" style="display: flex; align-items: center; min-width:50px">
-    <div class="header__tab__search" style=" min-width:250px">
+  <div class="js-tabs-container me-4" style="display: flex; align-items: center;">
+    <div class="header__tab__search " style=" min-width:250px">
       {% render_search_form %}
     </div>
   </div>
-  <div class="menu__dropdown js-tabs-container" id="options-menu" >
+  <div class="menu__dropdown  js-tabs-container" id="options-menu" >
     {% spaceless %}
       <ul class="header__tabs">
         <li class="menu__dropdown_button"><a
@@ -116,8 +110,8 @@
       </ul>
     {% endspaceless %}
 
-    <div class="header__tabs_content w-100 menu_list_wrapper ms-5">
-      <div class="header__tabs_content__tab border js-tab-content js-user-content mt-2" style="position:absolute;left:80%;display: none;">
+    <div class="header__tabs_content w-100 menu_list_wrapper ">
+      <div class="header__tabs_content__tab border js-tab-content js-user-content mt-2 ms-5" style="position:absolute;display: none;">
         <nav class="header__tab__nav  bg-light">
           {% spaceless %}
           <ul class="menu_list bg-light">
@@ -143,17 +137,17 @@
           {% endspaceless %}
         </nav>
       </div>
-      <div class="header__tabs_content__tab js-tab-content js-notifications-content mt-2" style="position: absolute; left:79%; display: none;">
-        <div class="header__tab__bell js-notifications-content-list border shadow p-2">
+      <div class="header__tabs_content__tab dropdown-content js-tab-content js-notifications-content mt-2 me-5 " style="position: absolute; display: none;width:400px;right:20px;max-height:500px;overflow:auto">
+        <div class="header__tab__bell js-notifications-content-list border shadow p-2 bg-light overflow-auto">
         </div>
       </div>
       
-      <div class="header__tabs_content__tab js-tab-content js-date-content mt-2" style="position: absolute;left:80%;display: none;">
+      <div class="header__tabs_content__tab js-tab-content dropdown-content js-date-content mt-2 " style="position: absolute;display: none;">
         <div class="header__tab__search">
           <form action="{% url 'spirit:search:date' %}" method="post" class="d-flex flex-column p-2 shadow bg-light">
             {% csrf_token %}
-            <input type="date" name="start" class="form-control mb-2 " style="background-color: white;"/>
-            <input type="date" name="end"  class="form-control mb-2" style="background-color: white;"/>
+            <input type="date" name="start" class="form-control mb-2 " />
+            <input type="date" name="end"  class="form-control mb-2"/>
             <input class="btn bg-ofx-blue text-white py-1" type="submit" name="post" value="{% trans 'Filter' %}" />
           </form>
         </div>
@@ -163,6 +157,32 @@
   </div>
   <script>
     $(document).ready(function() {
+    // Get all dropdowns on the page
+    document.addEventListener('click', function(event) {
+      var projectMenu = document.getElementById('project-menu');
+      var tagMenu = document.getElementById('tags-menu');
+      var optionsMenu = document.getElementById('options-menu');
+    
+      // Check if the clicked element is outside the project menu
+      if (!projectMenu.contains(event.target)) {
+        // Close the project menu
+        $('#project-menu .menu_list_wrapper').hide();
+      }
+    
+      // Check if the clicked element is outside the tag menu
+      if(tagMenu){
+      if (!tagMenu.contains(event.target)) {
+        // Close the tag menu
+        $('#tags-menu .menu_list_wrapper').hide();
+      }
+      }
+      // Check if the clicked element is outside the options menu
+      if (!optionsMenu.contains(event.target)) {
+        // Close the options menu
+        $('#options-menu .menu_list_wrapper').hide();
+      }
+    });
+   
     $('.menu__dropdown .dropdown_button').on('click',function() {
        var currentMenuId =       $(this).parents('.menu__dropdown').attr('id');
 
@@ -175,11 +195,10 @@
           $(this).show()
         }
       });
-        console.log("jjjjjjjj")
+        
       });
 
-     
-
+   
     });
   </script>
 </div>

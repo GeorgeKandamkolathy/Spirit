@@ -5,11 +5,13 @@
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block content %}
+<a href="/forum/">  <i class="fa fa-chevron-left"></i> Back </a>
 <div class="layout__admin">
+  <div class="d-flex bg-ofx-blue text-white align-items-center mb-5 px-3">
+  <h6 class="fw-bold text-center mt-2">{% trans "Dashboard" %}</h6>
   {% include "spirit/admin/_nav_menu.html" with active="dashboard" %}
-
-  <h1 class="headline">{% trans "Dashboard" %}</h1>
-
+ 
+  </div>
 
   <h2 class="headline">{% trans "Statistics" %}</h2>
   <div class="admin__statistics">

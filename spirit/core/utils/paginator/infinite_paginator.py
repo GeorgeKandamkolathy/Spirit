@@ -6,7 +6,7 @@ from infinite_scroll_pagination import paginator
 from infinite_scroll_pagination import serializers
 
 
-def paginate(request, query_set, lookup_field, per_page=15, page_var='value'):
+def paginate(request, query_set, lookup_field, per_page=10, page_var='value'):
     # TODO: remove
     try:
         value, pk = serializers.page_key(
